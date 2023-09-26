@@ -1,0 +1,12 @@
+{
+  "extends": "astro/tsconfigs/strict",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "allowSyntheticDefaultImports": true,
+    "module": "ES6",
+    "paths": {
+      "@/*": ["./src/*"],
+    }
+  },
+  "exclude": ["node_modules", "public", "build", ".cache", ".vscode", "static"]
+}
