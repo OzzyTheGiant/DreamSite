@@ -1,11 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 const flowbite = require("flowbite/plugin")
 
-// $color-main: #063C73;
-// $color-neutral: #0F2738;
-// $color-accent: #F8C843;
-// $color-secondary: #087F8C;
-
 module.exports = {
   plugins: [flowbite],
   content: [
@@ -15,6 +10,11 @@ module.exports = {
   ],
   darkMode: "class",
   theme: {
+    fontFamily: {
+      main: ["'Source Sans 3'", "Arial", "sans-serif"],
+      headings: ["Nunito Sans", "system-ui", "sans-serif"]
+    },
+
     extend: {
       colors: {
         // Palette is generated using a Material Design Color Palette generator. Default shade is 500
