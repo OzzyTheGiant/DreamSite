@@ -1,10 +1,25 @@
 {
+  "header": {
+    "about": {
+      "text": "Sobre Nostros",
+      "link": "/sobre-nosotros"
+    },
+    "contact": {
+      "text": "Contactar",
+      "link": "/contactar"
+    }
+  },
   "home": {
+    "title": "DreamCraft - Desarrollo de Sitios Web, Aplicaciones Web, y Aplicaciones Mobil",
+    "description": "Aumente su presencia virtual y agilize sus operaciones comerciales con sitios web y aplicaciones mobiles de alto rendimiento. Orgullosamente sirviendo negocios en Harlingen y el Valle de Rio Grande.",
     "headline": {
       "title": "Eleve su Negocio",
       "description": "Aumente su presencia virtual y agilize sus operaciones comerciales con sitios web y aplicaciones mobiles de alto rendimiento",
+      "image_alt": "Imagen de Ejemplo",
       "button_1_text": "Conseguir Cotización",
-      "button_2_text": "Hacer Pregunta"
+      "button_2_text": "Hacer Pregunta",
+      "button_1_link": "/es/cotizacion",
+      "button_2_link": "/es/contactar"
     }
   }
 }

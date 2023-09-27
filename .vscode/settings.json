@@ -2,7 +2,8 @@
     "editor.tabSize": 2,
     "cSpell.words": [
       "astro",
-      "astrojs"
+      "astrojs",
+      "flowbite"
     ],
     "eslint.validate": [
       "typescript",
