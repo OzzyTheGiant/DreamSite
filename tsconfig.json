@@ -3,7 +3,8 @@
   "compilerOptions": {
     "baseUrl": ".",
     "allowSyntheticDefaultImports": true,
-    "module": "ES6",
+    "resolveJsonModule": true,
+    "module": "ES2020",
     "paths": {
       "@/*": ["./src/*"],
     }
