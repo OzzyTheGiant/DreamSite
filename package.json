@@ -14,17 +14,156 @@
     "@astrojs/tailwind": "^5.0.0",
     "@fortawesome/free-brands-svg-icons": "^6.4.2",
     "@fortawesome/free-solid-svg-icons": "^6.4.2",
+    "@typescript-eslint/parser": "^6.7.3",
     "astro": "^3.1.3",
     "autoprefixer": "^10.4.16",
+    "eslint": "^8.50.0",
+    "eslint-plugin-svelte": "^2.33.2",
     "flowbite": "^1.8.1",
     "flowbite-svelte": "^0.44.17",
     "flowbite-svelte-blocks": "^0.5.1",
     "flowbite-svelte-icons": "^0.4.4",
+    "i18next": "^23.5.1",
     "postcss": "^8.4.30",
     "postcss-load-config": "^4.0.1",
     "postcss-scss": "^4.0.8",
     "svelte": "^4.2.1",
+    "svelte-eslint-parser": "^0.33.0",
     "svelte-preprocess": "^5.0.4",
     "tailwindcss": "^3.3.3"
-  }
+  },
+  "eslintConfig": {
+    "root": true,
+    "env": {
+      "node": true,
+      "es2021": true
+    },
+    "extends": [
+      "eslint:recommended",
+      "plugin:eslint-plugin-svelte",
+      "plugin:svelte/recommended"
+    ],
+    "rules": {
+      "indent": [
+        "error",
+        2,
+        {
+          "SwitchCase": 1
+        }
+      ],
+      "max-len": 1,
+      "svelte/indent": [
+        "error",
+        {
+          "indent": 2,
+          "switchCase": 1
+        }
+      ],
+      "svelte/sort-attributes": [
+        "error",
+        {
+          "order": [
+            "id",
+            "name",
+            "slot",
+            "class",
+            {
+              "match": "/^transition:/u",
+              "sort": "alphabetical"
+            },
+            {
+              "match": "/^in:/u",
+              "sort": "alphabetical"
+            },
+            {
+              "match": "/^out:/u",
+              "sort": "alphabetical"
+            },
+            {
+              "match": "/^animate:/u",
+              "sort": "alphabetical"
+            },
+            "this",
+            "bind:this",
+            [
+              "/^bind:/u",
+              "!bind:this",
+              "/^on:/u"
+            ],
+            {
+              "match": "/^class:/u",
+              "sort": "alphabetical"
+            },
+            {
+              "match": [
+                "!/:/u",
+                "!/^(?:this|id|name|style|class)$/u",
+                "!/^--/u"
+              ],
+              "sort": "alphabetical"
+            },
+            {
+              "match": "/^let:/u",
+              "sort": "alphabetical"
+            },
+            {
+              "match": "/^use:/u",
+              "sort": "alphabetical"
+            },
+            [
+              "style",
+              "/^style:/u"
+            ],
+            {
+              "match": "/^--/u",
+              "sort": "alphabetical"
+            }
+          ]
+        }
+      ],
+      "svelte/html-closing-bracket-spacing": [
+        "error",
+        {
+          "startTag": "never",
+          "endTag": "never",
+          "selfClosingTag": "never"
+        }
+      ],
+      "svelte/html-self-closing": "all",
+      "svelte/max-attributes-per-line": [
+        "error",
+        {
+          "multiline": 1,
+          "singleline": 4
+        }
+      ]
+    },
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+      "project": "./tsconfig.json",
+      "extraFileExtensions": [
+        ".svelte"
+      ]
+    },
+    "overrides": [
+      {
+        "files": [
+          "*.svelte",
+          "**/__tests__/*.{j,t}s?(x)",
+          "**/tests/unit/**/*.spec.{j,t}s?(x)"
+        ],
+        "parser": "svelte-eslint-parser",
+        "parserOptions": {
+          "parser": "@typescript-eslint/parser"
+        },
+        "env": {
+          "jest": true
+        }
+      }
+    ]
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions"
+  ]
 }
