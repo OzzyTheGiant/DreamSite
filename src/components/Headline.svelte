@@ -8,17 +8,20 @@
         <span class="text-2xl">{description}</span>
       </svelte:fragment>
 
-      <a href={primaryButtonLink} class="mb-2">
-        <Button size="xl" color="primary" class="inline-flex items-center justify-center mr-3">
-          {primaryButtonText}<FileInvoiceSolid size="md" class="ml-2 -mr-1" />
-        </Button>
-      </a>
+      <Button 
+        size="xl" 
+        color="primary" 
+        class="inline-flex items-center justify-center mr-3 mb-2"
+        href={primaryButtonLink}>
+        {primaryButtonText}<FileInvoiceSolid size="md" class="ml-2 -mr-1" />
+      </Button>
 
-      <a href={secondaryButtonLink} class="mb-2">
-        <Button size="xl" class="inline-flex items-center justify-center neutral">
-          {secondaryButtonText}
-        </Button>
-      </a>
+      <Button 
+        size="xl" 
+        class="inline-flex items-center justify-center neutral mb-2"
+        href={secondaryButtonLink}>
+        {secondaryButtonText}
+      </Button>
     </HeroHeader>
   </div>
   <div class="hidden lg:mt-0 lg:col-span-5 lg:flex">
