@@ -12,6 +12,12 @@
       "link": "/contact"
     }
   },
+  "call_to_action": {
+    "title": "Let's Build Something Awesome",
+    "description": "Get found more often and provide better services with professional tools to make your business grow and stand out. Let's start working on your next digital project!",
+    "button_text": "Get A Quote",
+    "button_link": "/quote"
+  },
   "home": {
     "title": "DreamCraft - Website, Web App, and Mobile App Development",
     "description": "Increase your online presence and streamline your business operations with high quality websites and apps. Proudly serving small businesses in Harlingen and the Rio Grande Valley.",

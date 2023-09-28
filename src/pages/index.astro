@@ -2,6 +2,7 @@
 import { t } from "i18next"
 import Layout from '@/layouts/Layout.astro'
 import Headline from '@/components/Headline.svelte'
+import CallToAction from "@/components/CallToAction.svelte"
 ---
 
 <Layout title={t("home.title")} description={t("home.description")}>
@@ -15,4 +16,14 @@ import Headline from '@/components/Headline.svelte'
     secondaryButtonText={t("home.headline.button_2_text")}
     primaryButtonLink={t("home.headline.button_1_link")}
     secondaryButtonLink={t("home.headline.button_2_link")}/>
+
+  <CallToAction
+    type="heading"
+    image="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/cta/cta-dashboard-mockup.svg"
+    imageDark="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/cta/cta-dashboard-mockup-dark.svg"
+    imageAlt="dashboard"
+    title={t("call_to_action.title")}
+    description={t("call_to_action.description")}
+    buttonText={t("call_to_action.button_text")}
+    buttonLink={t("call_to_action.button_link")}/>
 </Layout>
