@@ -1,4 +1,7 @@
 {
+  "common": {
+    "error": "Error"
+  },
   "header": {
     "about": {
       "text": "Sobre Nostros",

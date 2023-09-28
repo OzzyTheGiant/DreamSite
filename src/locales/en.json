@@ -1,4 +1,7 @@
 {
+  "common": {
+    "error": "Error"
+  },
   "header": {
     "about": {
       "text": "About",
@@ -21,5 +24,10 @@
       "button_1_link": "/quote",
       "button_2_link": "/contact"
     }
+  },
+  "error-404": {
+    "title": "OOF!",
+    "description": "Looks like this page could not be found. Getting lost can be scary, but you can click on the links above to see another page",
+    "button": "Back to Home Page"
   }
 }
