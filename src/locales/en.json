@@ -1,6 +1,7 @@
 {
   "common": {
-    "error": "Error"
+    "error": "Error",
+    "all_rights_reserved": "All Rights Reserved"
   },
   "header": {
     "about": {
@@ -72,6 +73,9 @@
         }
       }
     }
+  },
+  "footer": {
+    "description": "Websites, Web Apps, & Mobile Apps"
   },
   "error-404": {
     "title": "OOF!",

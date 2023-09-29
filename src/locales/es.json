@@ -1,6 +1,7 @@
 {
   "common": {
-    "error": "Error"
+    "error": "Error",
+    "all_rights_reserved": "Todos los Derechos Reservados"
   },
   "header": {
     "about": {
@@ -72,6 +73,9 @@
         "description": "Los sitios web y las aplicaciones pueden encargarse de la mayoría de los aspectos del marketing y las operaciones comerciales de los que normalmente se ocuparía usted mismo. Esto significa dedicar más tiempo a administrar y planificar su negocio"
       }
     }
+  },
+  "footer": {
+    "description": "Sitios Web & Aplicaciones Mobiles"
   },
   "error-404": {
     "title": "OOF!",

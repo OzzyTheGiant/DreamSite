@@ -1,6 +1,7 @@
 ---
 import i18next, { t } from "i18next"
 import Header from "@/components/Header.svelte"
+import Footer from "@/components/Footer.svelte"
 
 interface Props {
   title: string
@@ -32,6 +33,11 @@ const navLinks = {
   <body>
     <Header client:load links={navLinks}/>
     <slot/>
+    <Footer
+      type="default"
+      description={t("footer.description")}
+      siteName={import.meta.env.PUBLIC_SITE_NAME}
+      links={navLinks}/>
   </body>
 </html>
 
