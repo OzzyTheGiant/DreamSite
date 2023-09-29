@@ -29,6 +29,48 @@
       "button_2_text": "Ask a Question",
       "button_1_link": "/quote",
       "button_2_link": "/contact"
+    },
+    "features": {
+      "title": "Go Digital",
+      "description": "Here's some of the benefits of building a website or application for your business",
+      "list": {
+        "1": {
+          "name": "Max Visibility",
+          "description": "With more people searching the web for products and services than ever, a website can give you more exposure than traditional marketing materials such as flyers, banners, or even commercial advertisements."
+        },
+        "2": {
+          "name": "Customer Education",
+          "description": "A website can showcase what your business is all about, what your products and services are, and professional advice that positions you as an industry expert, increasing customers' awareness about you."
+        },
+        "3": {
+          "name": "Retain Potential Leads",
+          "description": "Most businesses have a traditional eight to five work schedule. If that's your case, a website helps service potential customers even when your business is closed, leading to more sales."
+        },
+        "4": {
+          "name": "Less Paperwork",
+          "description": "A web application helps digitize all those pesky forms and other documents you might deal with on a regular basis, saving you on the cost of buying paper, printer ink, and office supplies, and processing information more quickly."
+        },
+        "5": {
+          "name": "Online Services",
+          "description": "With websites and mobile apps, you can provide additional services such as payment processing, client portals, tools, and other provisions that you normally can't provide in person."
+        },
+        "6": {
+          "name": "Work From Anywhere",
+          "description": "Internal company applications can be hosted online so that you can continue work from any location where there's internet access, keeping your workflow going"
+        },
+        "7": {
+          "name": "App Integrations",
+          "description": "Some software like Quickbooks Online and Asana have ways to connect with sites and apps programmatically, automating common business tasks on the fly. This gets more value out of your business software."
+        },
+        "8": {
+          "name": "Data Protection",
+          "description": "Keeping your business data on a server off premises can be a good protection from theft or natural disasters, eleminating you from the burden of having to secure it at all times."
+        },
+        "9": {
+          "name": "More Time for Business",
+          "description": "Websites and apps can take care of most aspects of marketing and business operations that you would normally have deal with yourself. This means more time spent on running and planning your business."
+        }
+      }
     }
   },
   "error-404": {
