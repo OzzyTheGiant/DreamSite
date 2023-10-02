@@ -30,47 +30,93 @@
       "button_2_text": "Hacer Pregunta",
       "button_1_link": "/es/cotizacion",
       "button_2_link": "/es/contactar"
-    }
-  },
-  "features": {
-    "title": "Vuélvete Digital",
-    "description": "Estos son algunos de los beneficios de crear un sitio web o una aplicación para su negocio",
-    "list": {
-      "1": {
-        "name": "Visibilidad Máxima",
-        "description": "Con más personas que nunca buscando productos y servicios en la web, un sitio web puede brindarle más exposición que los materiales de marketing tradicionales, como folletos, pancartas o incluso anuncios comerciales."
+    },
+    "features": {
+      "title": "Vuélvete Digital",
+      "description": "Estos son algunos de los beneficios de crear un sitio web o una aplicación para su negocio",
+      "list": {
+        "1": {
+          "name": "Visibilidad Máxima",
+          "description": "Con más personas que nunca buscando productos y servicios en la web, un sitio web puede brindarle más exposición que los materiales de marketing tradicionales, como folletos, pancartas o incluso anuncios comerciales."
+        },
+        "2": {
+          "name": "Educación del cliente",
+          "description": "Un sitio web puede mostrar de qué se trata su negocio, cuáles son sus productos y servicios, y asesoramiento profesional que lo posiciona como un experto de la industria, aumentando el conocimiento de los clientes sobre usted."
+        },
+        "3": {
+          "name": "Retener clientes potenciales",
+          "description": "La mayoría de las empresas tienen un horario de trabajo tradicional de ocho a cinco. Si ese es su caso, un sitio web ayuda a atender a los clientes potenciales incluso cuando su empresa está cerrada, lo que genera más ventas."
+        },
+        "4": {
+          "name": "Menos papeleo",
+          "description": "Una aplicación web ayuda a digitalizar todos esos molestos formularios y otros documentos con los que podrías lidiar regularmente, ahorrándote el costo de comprar papel, tinta de impresora y suministros de oficina, y procesando información más rápidamente."
+        },
+        "5": {
+          "name": "Servicios en línea",
+          "description": "Con sitios web y aplicaciones móviles, puedes proporcionar servicios adicionales como procesamiento de pagos, portales de clientes, herramientas y otras prestaciones que normalmente no puedes proporcionar en persona."
+        },
+        "6": {
+          "name": "Trabajar desde cualquier lugar",
+          "description": "Las aplicaciones internas de la empresa se pueden alojar en línea para que pueda continuar trabajando desde cualquier ubicación donde haya acceso a Internet, manteniendo su flujo de trabajo activo"
+        },
+        "7": {
+          "name": "Integraciones de aplicaciones",
+          "description": "Algunos software como Quickbooks Online y Asana tienen formas de conectarse con sitios y aplicaciones mediante programación, automatizando tareas comerciales comunes sobre la marcha. Esto obtiene más valor de su software comercial"
+        },
+        "8": {
+          "name": "Protección de datos",
+          "description": "Mantener los datos de su empresa en un servidor externo puede ser una buena protección contra robos o desastres naturales, evitándole la carga de tener que protegerlos en todo momento."
+        },
+        "9": {
+          "name": "Más tiempo para los negocios",
+          "description": "Los sitios web y las aplicaciones pueden encargarse de la mayoría de los aspectos del marketing y las operaciones comerciales de los que normalmente se ocuparía usted mismo. Esto significa dedicar más tiempo a administrar y planificar su negocio"
+        }
+      }
+    },
+    "pricing": {
+      "title": "Aplicaciones para su Negocio",
+      "description": "DreamCraft ofrece una larga variedad de proyectos para diferentes negocios y organizaciones",
+      "units": {
+        "hour": "h",
+        "month": "m"
       },
-      "2": {
-        "name": "Educación del cliente",
-        "description": "Un sitio web puede mostrar de qué se trata su negocio, cuáles son sus productos y servicios, y asesoramiento profesional que lo posiciona como un experto de la industria, aumentando el conocimiento de los clientes sobre usted."
-      },
-      "3": {
-        "name": "Retener clientes potenciales",
-        "description": "La mayoría de las empresas tienen un horario de trabajo tradicional de ocho a cinco. Si ese es su caso, un sitio web ayuda a atender a los clientes potenciales incluso cuando su empresa está cerrada, lo que genera más ventas."
-      },
-      "4": {
-        "name": "Menos papeleo",
-        "description": "Una aplicación web ayuda a digitalizar todos esos molestos formularios y otros documentos con los que podrías lidiar regularmente, ahorrándote el costo de comprar papel, tinta de impresora y suministros de oficina, y procesando información más rápidamente."
-      },
-      "5": {
-        "name": "Servicios en línea",
-        "description": "Con sitios web y aplicaciones móviles, puedes proporcionar servicios adicionales como procesamiento de pagos, portales de clientes, herramientas y otras prestaciones que normalmente no puedes proporcionar en persona."
-      },
-      "6": {
-        "name": "Trabajar desde cualquier lugar",
-        "description": "Las aplicaciones internas de la empresa se pueden alojar en línea para que pueda continuar trabajando desde cualquier ubicación donde haya acceso a Internet, manteniendo su flujo de trabajo activo"
-      },
-      "7": {
-        "name": "Integraciones de aplicaciones",
-        "description": "Algunos software como Quickbooks Online y Asana tienen formas de conectarse con sitios y aplicaciones mediante programación, automatizando tareas comerciales comunes sobre la marcha. Esto obtiene más valor de su software comercial"
-      },
-      "8": {
-        "name": "Protección de datos",
-        "description": "Mantener los datos de su empresa en un servidor externo puede ser una buena protección contra robos o desastres naturales, evitándole la carga de tener que protegerlos en todo momento."
-      },
-      "9": {
-        "name": "Más tiempo para los negocios",
-        "description": "Los sitios web y las aplicaciones pueden encargarse de la mayoría de los aspectos del marketing y las operaciones comerciales de los que normalmente se ocuparía usted mismo. Esto significa dedicar más tiempo a administrar y planificar su negocio"
+      "tiers": {
+        "website": {
+          "title": "Sitio web estándar",
+          "description": "Sitio web estático tradicional para promocionar su negocio",
+          "feature_1": "3 - 5 páginas web únicas",
+          "feature_2": "Formularios de contacto",
+          "feature_3": "Optimización de motores de búsqueda",
+          "feature_4": "Diseño compatible con dispositivos móviles",
+          "feature_5": "Panel de administración para contenido de blog"
+        },
+        "e_commerce": {
+          "title": "Sitio web de comercio electrónico",
+          "description": "Vende tus productos y servicios en línea",
+          "feature_1": "Optimización de motores de búsqueda",
+          "feature_2": "Soporte de Stripe y PayPal",
+          "feature_3": "Marketing por correo electrónico",
+          "feature_4": "Integraciones de envío",
+          "feature_5": "Panel de administración para clientes y productos"
+        },
+        "web_app": {
+          "title": "Aplicación web",
+          "description": "App para atención al cliente u operaciones internas",
+          "feature_1": "Interfaz fácil de usar",
+          "feature_2": "Administración de archivos",
+          "feature_3": "Sistema de notificación al usuario",
+          "feature_4": "Integración de bases de datos",
+          "feature_5": "Integración de servicios de terceros"
+        },
+        "mobile_app": {
+          "title": "Aplicación móvil",
+          "description": "Llegar a usuarios de Android e iOS",
+          "feature_1": "Interfaz fácil de usar",
+          "feature_2": "Cámara, Bluetooth o funciones nativas",
+          "feature_3": "Sistema de notificación al usuario",
+          "feature_4": "Estrategias de monetización",
+          "feature_5": "Integración de bases de datos"
+        }
       }
     }
   },

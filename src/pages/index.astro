@@ -8,6 +8,7 @@ import Layout from '@/layouts/Layout.astro'
 import Headline from '@/components/Headline.svelte'
 import CallToAction from "@/components/CallToAction.svelte"
 import FeatureSection, { createFeatureList } from "@/components/FeatureSection.svelte"
+import PricingTable, { type PricingTier } from "@/components/PricingTable.svelte"
 
 const iconList: IconDefinition[] = [
   faMagnifyingGlass,
@@ -22,6 +23,61 @@ const iconList: IconDefinition[] = [
 ]
 
 const featureList = createFeatureList("home.features.list", iconList, t)
+
+const tiers: PricingTier[] = [
+  {
+    name: t("home.pricing.tiers.website.title"),
+    description: t("home.pricing.tiers.website.description"),
+    price: 25,
+    unit: t("home.pricing.units.hour"),
+    features: [
+      t("home.pricing.tiers.website.feature_1"),
+      t("home.pricing.tiers.website.feature_2"),
+      t("home.pricing.tiers.website.feature_3"),
+      t("home.pricing.tiers.website.feature_4"),
+      t("home.pricing.tiers.website.feature_5")
+    ]
+  },
+  {
+    name: t("home.pricing.tiers.e_commerce.title"),
+    description: t("home.pricing.tiers.e_commerce.description"),
+    price: 35,
+    unit: t("home.pricing.units.hour"),
+    features: [
+      t("home.pricing.tiers.e_commerce.feature_1"),
+      t("home.pricing.tiers.e_commerce.feature_2"),
+      t("home.pricing.tiers.e_commerce.feature_3"),
+      t("home.pricing.tiers.e_commerce.feature_4"),
+      t("home.pricing.tiers.e_commerce.feature_5")
+    ]
+  },
+  {
+    name: t("home.pricing.tiers.web_app.title"),
+    description: t("home.pricing.tiers.web_app.description"),
+    price: 40,
+    unit: t("home.pricing.units.hour"),
+    features: [
+      t("home.pricing.tiers.web_app.feature_1"),
+      t("home.pricing.tiers.web_app.feature_2"),
+      t("home.pricing.tiers.web_app.feature_3"),
+      t("home.pricing.tiers.web_app.feature_4"),
+      t("home.pricing.tiers.web_app.feature_5")
+    ]
+  },
+  {
+    name: t("home.pricing.tiers.mobile_app.title"),
+    description: t("home.pricing.tiers.mobile_app.description"),
+    price: 38,
+    unit: t("home.pricing.units.hour"),
+    features: [
+      t("home.pricing.tiers.mobile_app.feature_1"),
+      t("home.pricing.tiers.mobile_app.feature_2"),
+      t("home.pricing.tiers.mobile_app.feature_3"),
+      t("home.pricing.tiers.mobile_app.feature_4"),
+      t("home.pricing.tiers.mobile_app.feature_5")
+    ]
+  },
+]
 ---
 
 <Layout title={t("home.title")} description={t("home.description")}>
@@ -40,6 +96,11 @@ const featureList = createFeatureList("home.features.list", iconList, t)
     title={t("home.features.title")}
     description={t("home.features.description")}
     features={featureList}/>
+
+  <PricingTable
+    title={t("home.pricing.title")}
+    description={t("home.pricing.description")}
+    tiers={tiers}/>
 
   <CallToAction
     type="heading"

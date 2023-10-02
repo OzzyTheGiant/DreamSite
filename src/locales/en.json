@@ -72,6 +72,52 @@
           "description": "Websites and apps can take care of most aspects of marketing and business operations that you would normally have deal with yourself. This means more time spent on running and planning your business."
         }
       }
+    },
+    "pricing": {
+      "title": "Applications for your Business",
+      "description": "DreamCraft offers a wide range of projects for different businesses and organizations",
+      "units": {
+        "hour": "hr",
+        "month": "mo"
+      },
+      "tiers": {
+        "website": {
+          "title": "Standard Website",
+          "description": "Traditional static website for promoting your business",
+          "feature_1": "3 - 5 Unique Web Pages",
+          "feature_2": "Contact Forms",
+          "feature_3": "Search Engine Optimization",
+          "feature_4": "Mobile Friendly Design",
+          "feature_5": "Admin Panel for Blog Content"
+        },
+        "e_commerce": {
+          "title": "E-Commerce Website",
+          "description": "Sell your products and services online",
+          "feature_1": "Search Engine Optimization",
+          "feature_2": "Stripe and PayPal Support",
+          "feature_3": "Email Marketing",
+          "feature_4": "Shipping Integrations",
+          "feature_5": "Admin Panel for Clients and Products"
+        },
+        "web_app": {
+          "title": "Web App",
+          "description": "App for customer services or internal operations",
+          "feature_1": "User Friendly Interface",
+          "feature_2": "File Management",
+          "feature_3": "User Notification System",
+          "feature_4": "Database Integration",
+          "feature_5": "3rd Party Service Integration"
+        },
+        "mobile_app": {
+          "title": "Mobile App",
+          "description": "Reach users on Android and iOS",
+          "feature_1": "User Friendly Interface",
+          "feature_2": "Camera, Bluetooth, or Native Features",
+          "feature_3": "User Notification System",
+          "feature_4": "Monetization Strategies",
+          "feature_5": "Database Integration"
+        }
+      }
     }
   },
   "footer": {
