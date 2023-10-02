@@ -3,7 +3,8 @@
     <svelte:fragment slot="h2">{title}</svelte:fragment>
     <svelte:fragment slot="paragraph">{description}</svelte:fragment>
   </PricingHead>
-  <div class="space-y-8 lg:grid lg:grid-cols-{tiers.length} sm:gap-6 xl:gap-10 lg:space-y-0">
+  <div 
+    class="space-y-8 lg:grid lg:grid-cols-4 sm:gap-6 xl:gap-10 lg:space-y-0">
     {#each tiers as tier}
       <PricingCard>
         <PricingBodyHead>
@@ -55,4 +56,13 @@ export interface PricingTier {
   unit: string
   features: string[]
 }
+
+// NOTE: you must hardcode the amount of columns to use in the class string, as there is a bug where
+// interpolating the column amount causes the class name to not show up
 </script>
+
+<style global lang="postcss">
+div[class=*grid-cols-4] {
+  @apply lg:grid-cols-4;
+}
+</style>
