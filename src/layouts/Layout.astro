@@ -1,5 +1,6 @@
 ---
 import i18next, { t } from "i18next"
+import { type MapLocation } from "@/store/locations"
 import Header from "@/components/Header.svelte"
 import Footer from "@/components/Footer.svelte"
 
@@ -14,7 +15,21 @@ const navLinks = {
   [t("header.about.link")]: t("header.about.text"),
   [t("header.contact.link")]: t("header.contact.text"),
 }
+
+const locations: { [key: string]: MapLocation } = {
+  harlingen: {
+    coordinates: [26.169884, -98.013546],
+    address: {
+      street: "1327 E Washington Ave #203",
+      cityLine: "Harlingen, TX 78550",
+      phone: "(956) 241-0157"
+    }
+  }
+}
+
+// await switchSiteLanguage(Astro.url)
 ---
+
 <!doctype html>
 <html lang={i18next.language}>
   <head>
@@ -27,7 +42,12 @@ const navLinks = {
     <link crossorigin rel="preconnect" href="https://fonts.gstatic.com">
     <link 
       rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Nunito+Sans:opsz,wght@6..12,700&family=Source+Sans+3:ital,wght@0,400;0,700;1,400&display=swap">
+      href="https://fonts.googleapis.com/css2?family=Nunito+Sans:opsz,wght@6..12,700&family=Source+Sans+3:ital,wght@0,400;0,700;1,400&display=swap"/>
+    <link
+      crossorigin
+      rel="stylesheet",
+      href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css",
+      integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="/>
     <title>{title + t("home.title")}</title>
   </head>
   <body>
