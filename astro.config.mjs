@@ -8,5 +8,17 @@ dotenv.config()
 
 // https://astro.build/config
 export default defineConfig({
-  integrations: [svelte(), tailwind(), i18n()]
+  integrations: [svelte(), tailwind(), i18n()],
+  server: {
+    port: 8080
+  },
+  vite: {
+    server: {
+      proxy: {
+        "/api": {
+          target: "http://localhost:8000"
+        },
+      }
+    }
+  }
 });

@@ -120,6 +120,23 @@
       }
     }
   },
+  "contact": {
+    "title": "Contactenos",
+    "description": "¿Planéa conseguir un nuevo sitio web o aplicación para su negocio? Contacteme para cualquier pregunta, recomendacion, tiempo de devolución y acuerdos personales de precios",
+    "page_title": "¡Conversemos!",
+    "page_description": "¿Usted tiene preguntas sobre precios y beneficios de un proyecto? ¿Le gustaría conversar sobre una idea que usted tiene? Mandeme un mensaje para que resolvamos esto juntos.",
+    "fields": {
+      "name": "Nombre Completo",
+      "phone": "Numero de Telefono",
+      "email": "Correo Electronico",
+      "message": "Mensaje"
+    },
+    "submit_button": "Mandar Message",
+    "messages": {
+      "success": "Mensaje mandado exitosamente!",
+      "error": "Un error sucedio, intenta de nuevo"
+    }
+  },
   "footer": {
     "description": "Sitios Web & Aplicaciones Mobiles"
   },

@@ -120,6 +120,23 @@
       }
     }
   },
+  "contact": {
+    "title": "Contact Us",
+    "description": "Looking to get a new website or app for your business? Contact me for questions, recommendations, turn around times, and custom pricing agreements",
+    "page_title": "Let's Talk!",
+    "page_description": "Got any questions about benefits or pricing of a project? Want to discuss a project idea but not sure where to start? Send me a message so we can solve these concerns together!",
+    "fields": {
+      "name": "Full Name",
+      "phone": "Phone Number",
+      "email": "Email Address",
+      "message": "Message"
+    },
+    "submit_button": "Send Message",
+    "messages": {
+      "success": "Message sent successfully!",
+      "error": "Something went wrong, try again"
+    }
+  },
   "footer": {
     "description": "Websites, Web Apps, & Mobile Apps"
   },
