@@ -15,6 +15,7 @@
     "@felte/validator-yup": "^1.1.3",
     "@fortawesome/free-brands-svg-icons": "^6.4.2",
     "@fortawesome/free-solid-svg-icons": "^6.4.2",
+    "@types/leaflet": "^1.9.6",
     "@typescript-eslint/parser": "^6.7.3",
     "astro": "^3.1.3",
     "autoprefixer": "^10.4.16",
@@ -28,6 +29,7 @@
     "flowbite-svelte-icons": "^0.4.4",
     "i18next": "^23.5.1",
     "i18next-fs-backend": "^2.2.0",
+    "leaflet": "^1.9.4",
     "postcss": "^8.4.30",
     "postcss-load-config": "^4.0.1",
     "postcss-scss": "^4.0.8",
@@ -171,5 +173,8 @@
   "browserslist": [
     "> 1%",
     "last 2 versions"
-  ]
+  ],
+  "dependencies": {
+    "nanostores": "^0.9.3"
+  }
 }
