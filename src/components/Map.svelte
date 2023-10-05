@@ -1,4 +1,4 @@
-<div id="map" class="h-96"></div>
+<div id="map" class={mapClass}></div>
 
 <script lang="ts">
 // BUG https://github.com/Leaflet/Leaflet/issues/4968
@@ -10,6 +10,7 @@ import iconUrl from 'leaflet/dist/images/marker-icon.png'
 import shadowUrl from 'leaflet/dist/images/marker-shadow.png'
 import { $currentLocation as currentLocation } from "@/store/locations"
 
+export let mapClass: string = "h-96"
 export let locations: { [key: string]: MapLocation }
 export let onPan: CallableFunction | undefined = undefined
 
@@ -19,7 +20,7 @@ let markers: { [key: string]: L.Marker }
 $: $currentLocation && switchLocation()
 
 function panMapView(): void {
-  if ($currentLocation) map.setView($currentLocation.coordinates, 16)
+  if ($currentLocation) map.setView($currentLocation.coordinates, 15)
 }
 
 export function switchLocation(): void {

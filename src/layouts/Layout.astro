@@ -4,6 +4,8 @@ import { type MapLocation } from "@/store/locations"
 import Header from "@/components/Header.svelte"
 import { switchSiteLanguage } from "@/services/i18n"
 import Footer from "@/components/Footer.svelte"
+import MapView from "@/components/Map.svelte"
+import { type LinkGroup } from "@/components/Footer.svelte"
 
 interface Props {
   title: string
@@ -16,6 +18,13 @@ const navLinks = {
   [t("header.about.link")]: t("header.about.text"),
   [t("header.contact.link")]: t("header.contact.text"),
 }
+
+const linkGroups: LinkGroup[] = [
+  {
+    name: "Links",
+    list: navLinks
+  }
+]
 
 const locations: { [key: string]: MapLocation } = {
   harlingen: {
@@ -56,10 +65,13 @@ await switchSiteLanguage(Astro.url)
     <Header client:load links={navLinks}/>
     <slot/>
     <Footer
-      type="default"
+      type="socialmedia"
+      hasIcons={false}
       description={t("footer.description")}
       siteName={import.meta.env.PUBLIC_SITE_NAME}
-      links={navLinks}/>
+      {linkGroups}>
+      <MapView client:only {locations} slot="map" mapClass="h-48 col-span-2"/>
+    </Footer>
   </body>
 </html>
 
