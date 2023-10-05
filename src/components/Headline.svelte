@@ -5,7 +5,7 @@
 
       <svelte:fragment slot="h1">{title}</svelte:fragment>
       <svelte:fragment slot="paragraph">
-        <span class="text-2xl">{description}</span>
+        <span class="text-2xl text-gray-500 dark:text-gray-400">{description}</span>
       </svelte:fragment>
 
       <Button 
@@ -70,7 +70,7 @@ const h1Class = `
 `
 
 const pClass = `
-  max-w-2xl mb-6 font-light text-gray-500 lg:mb-8 md:text-lg lg:text-xl dark:text-gray-400
+  max-w-2xl mb-6 font-light text-gray-500 lg:mb-8 md:text-lg lg:text-xl
 `
 </script>
 

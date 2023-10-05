@@ -61,6 +61,6 @@ export let buttonLink: string | undefined = undefined
 <style lang="postcss">
 .link {
   @apply inline-flex items-center font-bold text-primary-600 hover:text-primary-800;
-  @apply dark:text-primary-500 dark:hover:text-primary-700;
+  @apply dark:text-primary-300 dark:hover:text-primary-500;
 }
 </style>

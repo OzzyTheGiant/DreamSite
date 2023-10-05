@@ -9,12 +9,12 @@
 
   <FeatureDefault>
     {#each features as feature}
-      <FeatureItem>
+      <FeatureItem pClass="text-gray-500 dark:text-gray-400">
         <svelte:fragment slot="icon">
-          <Fa size="lg" class="text-primary-600" icon={feature.icon}/>
+          <Fa size="lg" class="text-primary-600 dark:text-primary-100" icon={feature.icon}/>
         </svelte:fragment>
         <svelte:fragment slot="h3">{feature.name}</svelte:fragment>
-        <svelte:fragment slot="paragraph"><span>{feature.description}</span></svelte:fragment>
+        <svelte:fragment slot="paragraph">{feature.description}</svelte:fragment>
       </FeatureItem>
     {/each}
   </FeatureDefault>

@@ -50,7 +50,7 @@ export let testimonials: TestimonialData[]
 const icon = Quotes as any
 
 let activeIndex = 0
-let animationInterval = 0
+let animationInterval: NodeJS.Timer
 let reverse = false
 
 function switchTestimonial(indexStepCount = 1, manual = false) {

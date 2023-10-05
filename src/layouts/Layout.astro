@@ -61,8 +61,8 @@ await switchSiteLanguage(Astro.url)
       integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="/>
     <title>{title + t("home.title")}</title>
   </head>
-  <body>
-    <Header client:load links={navLinks}/>
+  <body class="dark:bg-neutral-900">
+    <Header hasDarkModeButton client:load links={navLinks}/>
     <slot/>
     <Footer
       type="socialmedia"
@@ -109,3 +109,7 @@ await switchSiteLanguage(Astro.url)
     @apply font-bold;
   }
 </style>
+
+<script>
+document.querySelector("html")!.classList.toggle("dark")
+</script>

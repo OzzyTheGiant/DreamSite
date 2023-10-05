@@ -11,14 +11,14 @@
           <svelte:fragment slot="h3">{tier.name}</svelte:fragment>
           <svelte:fragment slot="paragraph">{tier.description}</svelte:fragment>
           <svelte:fragment slot="price">
-            <span class="mr-2 text-5xl font-extrabold">${tier.price}</span>
+            <span class="mr-2 text-5xl font-extrabold dark:text-gray-400">${tier.price}</span>
             <span class="text-gray-500 dark:text-gray-400">/{tier.unit}</span>
           </svelte:fragment>
         </PricingBodyHead>
         <PricingItemWrapper>
           {#each tier.features as feature}
             <PricingItem class="text-green-500 dark:text-green-400">
-              <span>{feature}</span>
+              <span class="dark:text-gray-400">{feature}</span>
             </PricingItem>
           {/each}
           <svelte:fragment slot="btn">

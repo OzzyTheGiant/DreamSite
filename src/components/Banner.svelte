@@ -1,6 +1,6 @@
 {#if visible}
 <Banner id="website-banner">
-  <p class="text-sm font-light dark:text-gray-400"><slot/></p>
+  <p class="text-sm font-light dark:text-gray-300"><slot/></p>
   <CloseButton class="close-button" on:click={() => (visible = false)}/>
 </Banner>
 {/if}

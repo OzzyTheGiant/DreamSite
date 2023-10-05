@@ -13,7 +13,9 @@
             <NewspaperSolid size="xs" class="mr-1"/>
             {post.category}
           </span>
-          <span class="text-sm">{new Date(post.date).toLocaleDateString()}</span>
+          <span class="text-sm dark:text-gray-400">
+            {new Date(post.date).toLocaleDateString()}
+          </span>
         </ArticleHead>
         <ArticleBody>
           <svelte:fragment slot="h2"><a href="/">{post.title}</a></svelte:fragment>
@@ -80,7 +82,7 @@ export let posts: Post[]
 }
 
 .post-link {
-  @apply inline-flex items-center font-medium text-primary-600 dark:text-primary-500;
+  @apply inline-flex items-center font-medium text-primary-600 dark:text-primary-200;
   @apply hover:underline;
 }
 </style>

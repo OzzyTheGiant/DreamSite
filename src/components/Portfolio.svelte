@@ -1,10 +1,13 @@
-<Section name="portfolio" sectionClass="bg-white dark:bg-gray-900 antialiased">
+<Section name="portfolio" sectionClass="antialiased">
   <Portfolio 
     {title} 
-    subtitleClass="text-gray-600 text-gray-500 sm:text-xl mt-4 dark:text-gray-400" 
+    subtitleClass="text-gray-600 text-gray-500 sm:text-xl mt-4 dark:text-gray-400"
     subtitle={description}>
     {#each items as item}
-      <PortfolioItem {linkClass} {item} descriptionClass="text-gray-600 text-lg"/>
+      <PortfolioItem 
+        {linkClass} 
+        {item} 
+        descriptionClass="text-gray-600 text-lg dark:text-gray-400"/>
     {/each}
   </Portfolio>
 </Section>

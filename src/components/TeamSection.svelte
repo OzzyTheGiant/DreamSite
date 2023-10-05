@@ -8,8 +8,8 @@
     </TeamHeader>
     <TeamBody>
       {#each members as { href, image, imageAlt, name, jobTitle, description, ...member }}
-        <TeamItem {href} {name} {jobTitle} src={image} alt={imageAlt}>
-          <p class="mt-3 mb-4 font-light text-gray-500 dark:text-gray-400">{description}</p>
+        <TeamItem {href} {name} {jobTitle} divClass="dark:text-gray-300" alt={imageAlt}>
+          <p class="mt-3 mb-4 font-light dark:text-gray-400">{description}</p>
           <svelte:fragment slot="social">
             {#if member.email}
               <a href={`mailto:${member.email}`}><EnvelopeSolid/></a>
