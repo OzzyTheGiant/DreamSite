@@ -1,4 +1,4 @@
-<Footer class="bg-neutral-500" footerType={type}>
+<Footer class="bg-neutral-500 rounded-none" footerType={type}>
   {#if type === "socialmedia"}
     <div class="grid gap-12 lg:grid-cols-6 lg:gap-24">
       <div class="col-span-2">

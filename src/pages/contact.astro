@@ -1,17 +1,5 @@
 ---
-import { t } from "i18next"
-import Layout from "@/layouts/Layout.astro"
-import ContactForm from "@/components/ContactForm.svelte"
+import Page from "@/templates/contact.astro" 
 ---
 
-<Layout title={t("contact.title") + " - "} description={t("contact.description")}>
-  <ContactForm 
-    client:load 
-    title={t("contact.title")}
-    description={t("contact.description")}
-    nameLabel={t("contact.fields.name")}
-    phoneLabel={t("contact.fields.phone")}
-    emailLabel={t("contact.fields.email")}
-    messageLabel={t("contact.fields.message")}
-    buttonText={t("contact.submit_button")}/>
-</Layout>
+<Page/>

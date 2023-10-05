@@ -7,16 +7,18 @@ export default function i18n(options?: InitOptions): AstroIntegration {
     name: "i18n",
     hooks: {
       "astro:config:setup": async ({ isRestart, addWatchFile, config }) => {
-        for (const language of JSON.parse(process.env.LANGUAGES)) {
+        const languages = JSON.parse(process.env.LANGUAGES)
+
+        for (const language of languages) {
           addWatchFile(new URL(`./src/locales/${language}.json`, config.root))
         }
 
         if (isRestart) return i18next.reloadResources()
 
         await i18next.use(fsBackend).init({
-          lng: "en",
           fallbackLng: "en",
           debug: true,
+          supportedLngs: languages,
           backend: {
             loadPath: "src/locales/{{lng}}.json"
           },
@@ -25,4 +27,10 @@ export default function i18n(options?: InitOptions): AstroIntegration {
       }
     }
   }
+}
+
+export async function switchSiteLanguage(url: URL): Promise<void> {
+  const [_, lang] = url.pathname.split("/")
+  if (JSON.parse(process.env.LANGUAGES).includes(lang)) await i18next.changeLanguage(lang)
+  else await i18next.changeLanguage("en")
 }

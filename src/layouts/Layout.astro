@@ -2,6 +2,7 @@
 import i18next, { t } from "i18next"
 import { type MapLocation } from "@/store/locations"
 import Header from "@/components/Header.svelte"
+import { switchSiteLanguage } from "@/services/i18n"
 import Footer from "@/components/Footer.svelte"
 
 interface Props {
@@ -27,7 +28,7 @@ const locations: { [key: string]: MapLocation } = {
   }
 }
 
-// await switchSiteLanguage(Astro.url)
+await switchSiteLanguage(Astro.url)
 ---
 
 <!doctype html>
@@ -37,6 +38,7 @@ const locations: { [key: string]: MapLocation } = {
     <meta name="description" content={description || "Website by DreamCraft"}/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <meta name="generator" content={Astro.generator}/>
+    <!-- <meta http-equiv="refresh" content="0;url=/en/"/> -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg"/>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link crossorigin rel="preconnect" href="https://fonts.gstatic.com">
