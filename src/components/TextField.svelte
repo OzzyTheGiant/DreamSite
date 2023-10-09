@@ -1,23 +1,38 @@
 <div>
   <Label for={name} class="font-bold block mb-2">{label}</Label>
-  <Component
-    {required}
-    unWrappedClass={multiline ? unWrappedClass : undefined}
-    id={name}
-    name={name}
-    placeholder={placeholder}
-    value={value}
-    color={errors ? "red" : "base"}/>
+  {#if multiline}
+    <Textarea
+      {required}
+      {unWrappedClass}
+      {name}
+      {placeholder}
+      {value}
+      id={name}
+      color={errors ? "red" : "base"}/>
+  {:else}
+    <Input
+      {required}
+      unWrappedClass={multiline ? unWrappedClass : undefined}
+      id={name}
+      name={name}
+      placeholder={placeholder}
+      value={value}
+      color={errors ? "red" : "base"}>
+      <Fa slot="left" icon={icon}/>
+    </Input>
+  {/if}
   {#if errors}
     <Helper helperClass="my-1 text-xs" color="red">{errors.join(". ")}</Helper>
   {/if}
 </div>
 
 <script lang="ts">
+import { faPenToSquare, type IconDefinition } from "@fortawesome/free-solid-svg-icons"
 import Label from "flowbite-svelte/Label.svelte"
 import Input from "flowbite-svelte/Input.svelte"
 import Helper from "flowbite-svelte/Helper.svelte"
 import Textarea from "flowbite-svelte/Textarea.svelte"
+import Fa from "svelte-fa"
 
 export let name: string
 export let label: string
@@ -27,8 +42,8 @@ export let errors: string[] | undefined = undefined
 export let placeholder: string | undefined = undefined
 export let required: boolean | undefined = undefined
 export let multiline: boolean | undefined = undefined
+export let icon: IconDefinition = faPenToSquare
 
-const Component = multiline ? Textarea : Input
 let unWrappedClass = ""
 
 $: if (errors) {

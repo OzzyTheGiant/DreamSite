@@ -12,7 +12,8 @@
         placeholder="John Doe"
         label={nameLabel}
         errors={!!$touched.name && $errors.name}
-        bind:value={$data.name}/>
+        bind:value={$data.name}
+        icon={faUser}/>
 
       <TextField
         required
@@ -20,7 +21,8 @@
         placeholder="john@example.com"
         label={emailLabel}
         errors={!!$touched.email && $errors.email}
-        bind:value={$data.email}/>
+        bind:value={$data.email}
+        icon={faEnvelope}/>
 
       <TextField
         required
@@ -28,7 +30,8 @@
         placeholder="(123) 456 7890"
         label={phoneLabel}
         errors={!!$touched.phone && $errors.phone}
-        bind:value={$data.phone}/>
+        bind:value={$data.phone}
+        icon={faPhone}/>
 
       <TextField
         required
@@ -55,12 +58,13 @@
 import { createForm, FelteSubmitError } from "felte"
 import * as yup from "yup"
 import { validator } from "@felte/validator-yup"
+import { faEnvelope, faPhone, faUser } from "@fortawesome/free-solid-svg-icons"
 import Section from 'flowbite-svelte-blocks/Section.svelte'
 import Contact from "flowbite-svelte-blocks/contact/Contact.svelte"
 import Alert from "flowbite-svelte/Alert.svelte"
 import Button from "flowbite-svelte/Button.svelte"
-import TextField from "@/components/TextField.svelte"
 import Spinner from "flowbite-svelte/Spinner.svelte"
+import TextField from "@/components/TextField.svelte"
 
 interface Notification {
   type: "success" | "error",
