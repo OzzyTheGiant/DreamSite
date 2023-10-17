@@ -3,6 +3,22 @@ require_once("../vendor/autoload.php");
 
 use Dotenv\Dotenv;
 
+function validateFile($file): bool {
+  $file_name = $file["name"];
+
+  if (
+    $file["type"] != "application/pdf" &&
+    $file["type"] != "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+  ) {
+    http_response_code(400);
+    echo "Invalid file type for $file_name";
+    echo $file["type"];
+    exit;
+  }
+
+  return true;
+}
+
 try {
   // load environment variables
   $dotenv = Dotenv::createImmutable($_SERVER["DOCUMENT_ROOT"]);
@@ -32,6 +48,11 @@ try {
       ->setFrom([$from => $_ENV["SMTP_FROM"]])
       ->setTo([$_ENV["SMTP_TO"]])
       ->setBody($content);
+  
+  foreach($_FILES as $file) {
+    validateFile($file);
+    $message->attach(Swift_Attachment::fromPath($file["tmp_name"], $file["type"]));
+  }
   
   // Send the message
   $mailer->send($message);
