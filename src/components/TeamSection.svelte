@@ -8,7 +8,13 @@
     </TeamHeader>
     <TeamBody>
       {#each members as { href, image, imageAlt, name, jobTitle, description, ...member }}
-        <TeamItem {href} {name} {jobTitle} divClass="dark:text-gray-300" src={image} alt={imageAlt}>
+        <TeamItem 
+          {href} 
+          {name} 
+          {jobTitle} 
+          divClass="dark:text-gray-300 bg-white items-center sm:flex rounded-lg p-4" 
+          src={image} 
+          alt={imageAlt}>
           <p class="mt-3 mb-4 font-light dark:text-gray-400">{description}</p>
           <svelte:fragment slot="social">
             {#if member.email}
