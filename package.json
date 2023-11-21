@@ -7,12 +7,20 @@
     "start": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "directus": "npx directus start"
+  },
+  "dependencies": {
+    "directus": "^10.8.1",
+    "sqlite3": "^5.1.6"
+  },
+  "peerDependencies": {
+    "rollup": "^2.63.0"
   },
   "devDependencies": {
+    "@astrojs/sitemap": "^3.0.0",
     "@astrojs/svelte": "^4.0.2",
     "@astrojs/tailwind": "^5.0.0",
-    "@astrojs/sitemap": "^3.0.0",
     "@felte/validator-yup": "^1.1.3",
     "@fortawesome/free-brands-svg-icons": "^6.4.2",
     "@fortawesome/free-solid-svg-icons": "^6.4.2",
@@ -31,6 +39,7 @@
     "i18next": "^23.5.1",
     "i18next-fs-backend": "^2.2.0",
     "leaflet": "^1.9.4",
+    "nanostores": "^0.9.3",
     "postcss": "^8.4.30",
     "postcss-load-config": "^4.0.1",
     "postcss-scss": "^4.0.8",
@@ -174,8 +183,5 @@
   "browserslist": [
     "> 1%",
     "last 2 versions"
-  ],
-  "dependencies": {
-    "nanostores": "^0.9.3"
-  }
+  ]
 }
