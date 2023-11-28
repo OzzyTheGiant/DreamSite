@@ -1,12 +1,17 @@
 {
   "common": {
     "error": "Error",
-    "all_rights_reserved": "All Rights Reserved"
+    "all_rights_reserved": "All Rights Reserved",
+    "read_more": "Read More"
   },
   "header": {
     "about": {
       "text": "About",
       "link": "/about"
+    },
+    "articles": {
+      "text": "Articles",
+      "link": "/articles"
     },
     "contact": {
       "text": "Contact",
@@ -119,6 +124,10 @@
         }
       }
     }
+  },
+  "articles": {
+    "title": "Articles",
+    "description": "These are the latest insights web and mobile development"
   },
   "contact": {
     "title": "Contact Us",

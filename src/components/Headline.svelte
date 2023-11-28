@@ -57,8 +57,8 @@ import FileInvoiceSolid from "flowbite-svelte-icons/FileInvoiceSolid.svelte"
 export let sectionType: Section["name"]
 export let title: string
 export let description: string
-export let image: string
-export let imageAlt: string
+export let image: string | undefined = undefined
+export let imageAlt: string | undefined = undefined
 export let primaryButtonText: string
 export let secondaryButtonText: string
 export let primaryButtonLink: string = "/"

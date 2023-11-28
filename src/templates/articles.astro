@@ -1,0 +1,20 @@
+---
+import { t } from "i18next"
+import Layout from '@/layouts/Layout.astro'
+import ArticleList, { type Article } from "@/components/ArticleList.svelte"
+
+const articles: Article[] = [
+  {
+    title: "Sample Title",
+    description: "Ut cillum fugiat aliqua aliquip sit aute qui. Veniam ipsum qui esse ullamco occaecat nulla ipsum excepteur ipsum. Eiusmod tempor deserunt mollit sint cillum cupidatat.",
+    date: "2023-10-01",
+    category: "Article",
+    author: "John Doe",
+    slug: "sample-title"
+  }
+]
+---
+
+<Layout title={t("articles.title") + " - "} description={t("articles.description")}>
+  <ArticleList articles={articles}/>
+</Layout>
