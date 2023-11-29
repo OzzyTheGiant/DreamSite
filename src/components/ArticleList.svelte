@@ -17,12 +17,12 @@
             <NewspaperSolid size="xs" class="mr-1" />
             {article.category}
           </span>
-          <span class="text-sm">{article.date}</span>
+          <span class="text-sm">{article.isoDate}</span>
         </ArticleHead>
         <ArticleBody>
           <svelte:fragment slot="h2"><a href="/">{article.title}</a></svelte:fragment>
           <svelte:fragment slot="paragraph">
-            <p class="mb-5 font-light text-gray-500 dark:text-gray-400">{article.description}</p>
+            <p class="mb-5 font-light text-gray-500 dark:text-gray-400">{article.lead}</p>
           </svelte:fragment>
         </ArticleBody>
         <ArticleAuthor>
@@ -30,11 +30,11 @@
             <img 
               class="w-7 h-7 rounded-full"
               src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/jese-leos.png"
-              alt={article.author} />
-            <span class="font-medium dark:text-white">{article.author}</span>
+              alt={article.author.name} />
+            <span class="font-medium dark:text-white">{article.author.name}</span>
           </svelte:fragment>
           <a 
-            href={t("header.articles.link") + "/" + article.slug} 
+            href={t("header.articles.link") + "/" + article.id} 
             class="inline-flex items-center font-medium text-primary-600 dark:text-primary-200 hover:underline">
             {t("common.read_more")}
             <ArrowRightOutline size="sm" class="ml-2" />
@@ -62,12 +62,17 @@ export let articles: Article[]
 
 <script lang="ts" context="module">
 export interface Article {
+  id: string
   title: string
   category: string
-  description: string
-  author: string
-  date: string
-  slug: string
+  lead: string
+  author: {
+    name: string
+    title?: string // title must be "" if it needs to be hidden, otherwise, undefined will display
+    profilePicture?: string // override visibility with css if needed
+    href?: string // href required to display title on BlogTemplate
+  }
+  isoDate: string
   content?: string
 }
 </script>

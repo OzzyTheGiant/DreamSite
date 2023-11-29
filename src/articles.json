@@ -1,0 +1,16 @@
+[
+  {
+    "id": "sample-title",
+    "title": "Sample Title",
+    "lead": "Ut cillum fugiat aliqua aliquip sit aute qui. Veniam ipsum qui esse ullamco occaecat nulla ipsum excepteur ipsum. Eiusmod tempor deserunt mollit sint cillum cupidatat.",
+    "isoDate": "2023-10-01",
+    "category": "Article",
+    "author": {
+      "name": "John Doe",
+      "title": "Web Developer",
+      "href": "/",
+      "profilePicture": "https://placeholder.co/50x50"
+    },
+    "content": "<p>test</p>"
+  }
+]

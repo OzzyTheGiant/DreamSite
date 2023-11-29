@@ -1,0 +1,17 @@
+---
+import Page from "@/templates/article.astro"
+import articles from "@/articles.json"
+
+
+export const getStaticPaths = () => {
+  return articles.map(article => ({
+    params: { article: article.id }
+  }));
+}
+
+const article = articles.find(article => article.id === Astro.params.article)
+
+if (article) article.content = (await import(`../../content/${article?.id}.md`)).compiledContent()
+---
+
+<Page article={article!}/>

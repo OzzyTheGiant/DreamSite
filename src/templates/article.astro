@@ -1,0 +1,15 @@
+---
+import Layout from "@/layouts/Layout.astro"
+import ArticleComponent from "@/components/Article.svelte"
+import type { Article as ArticleData } from "@/components/ArticleList.svelte";
+
+interface Props {
+  article: ArticleData
+}
+
+const { article } = Astro.props
+---
+
+<Layout title={article.title} description={article.lead}>
+  <ArticleComponent client:load article={article as Required<ArticleData>}/>
+</Layout>

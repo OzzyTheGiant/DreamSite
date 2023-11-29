@@ -93,7 +93,9 @@ await switchSiteLanguage(Astro.url)
     @apply text-gray-600;
   }
 
-  code {
+  pre, code, pre *, code * {
+    @apply !bg-primary-900;
+
     font-family:
       JetBrains Mono,
       Fira Code,
@@ -103,11 +105,50 @@ await switchSiteLanguage(Astro.url)
       Monaco,
       Bitstream Vera Sans Mono,
       Courier New,
-      monospace;
+      monospace
+      !important;
   }
 
   button[type="submit"], button[type="button"], a[class*="bg"], nav ul li a {
     @apply font-bold;
+  }
+
+  pre {
+    @apply p-4;
+  }
+
+  table {
+    @apply w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400;
+  }
+
+  thead {
+    @apply text-xs text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-400;
+  }
+
+  tbody tr {
+    @apply bg-white dark:bg-gray-800;
+  }
+
+  tbody tr:not(:last-child) {
+    @apply border-b dark:border-gray-700;
+  }
+
+  th {
+    @apply px-6 py-3;
+  }
+
+  td {
+    @apply px-6 py-4
+  }
+
+  /** Markdown math equations */
+  .katex {
+    @apply px-1;
+  }
+  
+  .katex, .katex span {
+    @apply bg-primary-200 dark:bg-primary-900 text-gray-800;
+    @apply dark:text-gray-300 !important;
   }
 </style>
 

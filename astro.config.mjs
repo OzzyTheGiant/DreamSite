@@ -4,6 +4,10 @@ import tailwind from "@astrojs/tailwind"
 import dotenv from "dotenv"
 import i18n from "./src/services/i18n"
 import sitemap from "@astrojs/sitemap"
+import remarkGFM from "remark-gfm"
+import remarkDefinitionList from "remark-definition-list"
+import remarkMath from "remark-math"
+import rehypeKatex from "rehype-katex"
 
 dotenv.config()
 
@@ -22,5 +26,9 @@ export default defineConfig({
         }
       }
     }
+  },
+  markdown: {
+    remarkPlugins: [remarkGFM, remarkDefinitionList, remarkMath],
+    rehypePlugins: [rehypeKatex]
   }
 })
