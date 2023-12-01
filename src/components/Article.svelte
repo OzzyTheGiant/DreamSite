@@ -1,32 +1,36 @@
-<Section name='blog' classSection='pt-8 pb-16 lg:pt-16 lg:pb-24 bg-white dark:bg-gray-900'>
-    <BlogTemplate blog={article} />
+<Section name='blog' sectionClass='bg-white dark:bg-gray-900 py-0'>
+  {#if image}
+    <img class="max-w-2xl mx-auto mb-8" src={image} alt={article.image.title}/>
+  {/if}
 
-    <Section name='comment' classSection='not-format' classDiv="px-0">
-      <Comment title="Discussion (20)">
-        <form class="mb-6">
-          <Label for="comment" class="sr-only">Your comment</Label>
-          <Textarea id="comment" rows="6" class="mb-4"
-              placeholder="Write a comment..." required>
-          </Textarea>
-          <Button type="submit" class="px-4 text-xs font-medium">
-            Post comment
-          </Button>
-        </form>
+  <BlogTemplate blog={article} />
 
-        {#each comments as comment, i}
-          <CommentItem {comment} articleClass ={ i !== 0 ? 'border-t':''}>
-            <svelte:fragment slot="dropdownMenu">
-              <DotsHorizontalOutline class="dots-menu dark:text-white" />
-              <Dropdown triggeredBy=".dots-menu">
-                <DropdownItem>Edit</DropdownItem>
-                <DropdownItem>Remove</DropdownItem>
-                <DropdownItem>Report</DropdownItem>
-              </Dropdown>
-            </svelte:fragment>
-          </CommentItem>
-        {/each}
-      </Comment>
-    </Section>
+  <Section name='comment' classSection='not-format' classDiv="px-0">
+    <Comment title="Discussion (20)">
+      <form class="mb-6">
+        <Label for="comment" class="sr-only">Your comment</Label>
+        <Textarea id="comment" rows="6" class="mb-4"
+            placeholder="Write a comment..." required>
+        </Textarea>
+        <Button type="submit" class="px-4 text-xs font-medium">
+          Post comment
+        </Button>
+      </form>
+
+      {#each comments as comment, i}
+        <CommentItem {comment} articleClass ={ i !== 0 ? 'border-t':''}>
+          <svelte:fragment slot="dropdownMenu">
+            <DotsHorizontalOutline class="dots-menu dark:text-white" />
+            <Dropdown triggeredBy=".dots-menu">
+              <DropdownItem>Edit</DropdownItem>
+              <DropdownItem>Remove</DropdownItem>
+              <DropdownItem>Report</DropdownItem>
+            </Dropdown>
+          </svelte:fragment>
+        </CommentItem>
+      {/each}
+    </Comment>
+  </Section>
 </Section>
 
 <script lang="ts">
@@ -35,6 +39,12 @@ import { Button, Textarea, Label, Dropdown, DropdownItem } from 'flowbite-svelte
 import { DotsHorizontalOutline } from 'flowbite-svelte-icons'
 
 export let article: BlogTemplate["blog"]
+
+$: image = article.image ? (() => {
+  const extension = article.image.filename_disk.split(".").pop()
+  const image_name = article.image.title.toLowerCase().replace(" ", "-") + "." + extension
+  return `${import.meta.env.PUBLIC_URL}/assets/${article.image.filename_disk}/${image_name}`
+})() : undefined
 
 const comments = [
   {
@@ -83,6 +93,8 @@ const comments = [
 
 <style global lang="postcss">
 article {
+  @apply max-w-3xl;
+
   p, h1, h2, h3, h4, h5, h6 {
     @apply text-gray-800 my-4;
   }

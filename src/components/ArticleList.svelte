@@ -94,6 +94,11 @@ export interface Article {
     profilePicture?: string // override visibility with css if needed
     href?: string // href required to display title on BlogTemplate
   },
+  image: {
+    title: string
+    id: string
+    filename_disk: string
+  } | null,
   user_created: {
     first_name: string
     last_name: string
