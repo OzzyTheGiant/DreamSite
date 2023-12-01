@@ -1,4 +1,5 @@
 ---
+import { convertMDtoHTML } from "@/services/marked"
 import Layout from "@/layouts/Layout.astro"
 import ArticleComponent from "@/components/Article.svelte"
 import type { Article as ArticleData } from "@/components/ArticleList.svelte";
@@ -8,8 +9,29 @@ interface Props {
 }
 
 const { article } = Astro.props
+const { pathname } = Astro.url
+const language = pathname.split("/")[1]
+const translation = article.translations.find(trans => trans.languages_id.startsWith(language))
+
+if (translation) {
+  article.title = translation.title
+  article.lead = translation.lead
+  article.content = translation.content
+}
+
+// Use the line below if you wish to import local Markdown files
+// if (article) article.content = (await import(`../content/${article?.slug}.md`)).compiledContent()
+
+article.content = await convertMDtoHTML(article.content!)
+// formatting article object according to BlogTemplate prop type
+article.isoDate = article.date_updated || article.date_created
+article.directus_id = article.id as number
+article.id = article.slug
+article.author.href = "/"
+article.author.name = `${article.user_created.first_name} ${article.user_created.last_name}`
+article.author.profilePicture = "https://placehold.co/32x32"
 ---
 
-<Layout title={article.title} description={article.lead}>
+<Layout title={article.title} description={article.lead!}>
   <ArticleComponent client:load article={article as Required<ArticleData>}/>
 </Layout>

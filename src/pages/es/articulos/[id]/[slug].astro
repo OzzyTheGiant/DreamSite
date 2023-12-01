@@ -1,0 +1,25 @@
+---
+import Page from "@/templates/article.astro"
+import { fetchArticleIDs, fetchArticleByID, type ArticleList } from "@/services/directus"
+
+// If creating local articles, create a file like this one below and ensure that it is an array of 
+// Article objects. See the type definition in the ArticleList component
+// import articles from "@/content/articles.json"
+
+export const getStaticPaths = async () => {
+  const articles = await fetchArticleIDs()
+  return articles.map((article: ArticleList[0]) => ({
+    params: { 
+      id: article.id,
+      slug: article.translations.find(trans => trans.languages_id.startsWith("es"))?.slug
+    }
+  }));
+}
+
+// for importing local articles
+// const article: any = articles.find(article => article.id.toString() === Astro.params.id.toString())
+
+const article = await fetchArticleByID(Astro.params.id)
+---
+
+<Page article={article!}/>

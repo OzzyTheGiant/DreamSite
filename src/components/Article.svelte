@@ -33,9 +33,8 @@
 import { Section, BlogTemplate, Comment, CommentItem } from 'flowbite-svelte-blocks'
 import { Button, Textarea, Label, Dropdown, DropdownItem } from 'flowbite-svelte'
 import { DotsHorizontalOutline } from 'flowbite-svelte-icons'
-import { type Article as ArticleData } from "@/components/ArticleList.svelte"
 
-export let article: Required<ArticleData>
+export let article: BlogTemplate["blog"]
 
 const comments = [
   {

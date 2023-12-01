@@ -4,7 +4,6 @@ import tailwind from "@astrojs/tailwind"
 import dotenv from "dotenv"
 import i18n from "./src/services/i18n"
 import sitemap from "@astrojs/sitemap"
-import remarkGFM from "remark-gfm"
 import remarkDefinitionList from "remark-definition-list"
 import remarkMath from "remark-math"
 import rehypeKatex from "rehype-katex"
@@ -28,7 +27,25 @@ export default defineConfig({
     }
   },
   markdown: {
-    remarkPlugins: [remarkGFM, remarkDefinitionList, remarkMath],
+    gfm: true,
+    shikiConfig: {
+      langs: [
+        "dart",
+        "php",
+        "python",
+        "javascript",
+        "typescript",
+        "c#",
+        "kotlin",
+        "go",
+        "rust",
+        "html",
+        "css"
+      ],
+      theme: "dracula",
+      wrap: false
+    },
+    remarkPlugins: [remarkDefinitionList, remarkMath],
     rehypePlugins: [rehypeKatex]
   }
 })

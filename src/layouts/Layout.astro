@@ -6,6 +6,7 @@ import { switchSiteLanguage } from "@/services/i18n"
 import Footer from "@/components/Footer.svelte"
 import MapView from "@/components/Map.svelte"
 import { type LinkGroup } from "@/components/Footer.svelte"
+import "highlight.js/styles/shades-of-purple.min.css"
 
 interface Props {
   title: string
@@ -94,8 +95,6 @@ await switchSiteLanguage(Astro.url)
   }
 
   pre, code, pre *, code * {
-    @apply !bg-primary-900;
-
     font-family:
       JetBrains Mono,
       Fira Code,
@@ -107,6 +106,10 @@ await switchSiteLanguage(Astro.url)
       Courier New,
       monospace
       !important;
+  }
+
+  code * {
+    color: inherit
   }
 
   button[type="submit"], button[type="button"], a[class*="bg"], nav ul li a {
@@ -141,14 +144,22 @@ await switchSiteLanguage(Astro.url)
     @apply px-6 py-4
   }
 
-  /** Markdown math equations */
-  .katex {
-    @apply px-1;
-  }
-  
-  .katex, .katex span {
+  /** Markdown math equations. Do note that there is an additional .katex-html element out there */
+  .katex-mathml, math {
     @apply bg-primary-200 dark:bg-primary-900 text-gray-800;
     @apply dark:text-gray-300 !important;
+  }
+
+  math {
+    @apply px-1;
+  }
+
+  .katex-display math {
+    @apply px-1 py-1;
+  }
+
+  .katex-html {
+    @apply hidden;
   }
 </style>
 

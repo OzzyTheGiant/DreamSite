@@ -1,6 +1,7 @@
 [
   {
-    "id": "sample-title",
+    "id": 1,
+    "slug": "state-of-web-development",
     "title": "Sample Title",
     "lead": "Ut cillum fugiat aliqua aliquip sit aute qui. Veniam ipsum qui esse ullamco occaecat nulla ipsum excepteur ipsum. Eiusmod tempor deserunt mollit sint cillum cupidatat.",
     "isoDate": "2023-10-01",
