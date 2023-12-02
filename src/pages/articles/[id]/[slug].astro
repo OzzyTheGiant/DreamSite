@@ -1,14 +1,16 @@
 ---
 import Page from "@/templates/article.astro"
-import { fetchArticleIDs, fetchArticleByID } from "@/services/directus"
+import { fetchArticleList, fetchArticleByID } from "@/services/directus"
+import type { Article } from "@/components/ArticleList.svelte"
 
 // If creating local articles, create a file like this one below and ensure that it is an array of 
 // Article objects. See the type definition in the ArticleList component
 // import articles from "@/content/articles.json"
 
 export const getStaticPaths = async () => {
-  const articles = await fetchArticleIDs()
-  return articles.map((article: { id: number, slug: string }) => ({
+  const articles = await fetchArticleList("en")
+  console.log(articles)
+  return articles.map((article: Partial<Article>) => ({
     params: { id: article.id, slug: article.slug }
   }));
 }
@@ -16,7 +18,7 @@ export const getStaticPaths = async () => {
 // for importing local articles
 // const article: any = articles.find(article => article.id.toString() === Astro.params.id.toString())
 
-const article = await fetchArticleByID(Astro.params.id)
+const article = await fetchArticleByID(Astro.params.id!)
 ---
 
 <Page article={article!}/>

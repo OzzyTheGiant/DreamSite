@@ -1,20 +1,40 @@
 ---
 import { t } from "i18next"
+import dayjs from "dayjs"
+import LocalizedFormat from "dayjs/plugin/localizedFormat"
 import Layout from '@/layouts/Layout.astro'
 import ArticleList, { type Article } from "@/components/ArticleList.svelte"
+import "dayjs/locale/es"
 
-const articles: Article[] = [
-  {
-    id: "sample-title",
-    title: "Sample Title",
-    lead: "Ut cillum fugiat aliqua aliquip sit aute qui. Veniam ipsum qui esse ullamco occaecat nulla ipsum excepteur ipsum. Eiusmod tempor deserunt mollit sint cillum cupidatat.",
-    isoDate: "2023-10-01",
-    category: "Article",
-    author: {
-      name: "John Doe"
-    }
+interface Props {
+  articles: Partial<Article>[]
+  lang?: string
+}
+
+const { articles, lang } = Astro.props
+
+dayjs.extend(LocalizedFormat)
+
+for (const article of articles) {
+  if (lang) {
+    article.title = article.translations![0].title
+    article.slug = article.translations![0].slug
+    article.lead = article.translations![0].lead
+    article.date_created = dayjs(article.date_created).locale("es").format("L")
+    article.category!.name = (article.category?.translations.find(
+      trans => (trans as any).languages_code.startsWith(lang)
+    ) as any).name ?? ""
+  } else {
+    article.date_created = dayjs(article.date_created).format("L")
   }
-]
+
+  if (article.image) {
+    const extension = article.image.filename_disk.split(".").pop()
+    const image_name = article.image.title.toLowerCase().replace(" ", "-") + "." + extension
+    const filepath = `${import.meta.env.PUBLIC_URL}/assets/${article.image.filename_disk}/${image_name}`
+    article.image.filename_disk = filepath
+  }
+}
 ---
 
 <Layout title={t("articles.title") + " - "} description={t("articles.description")}>

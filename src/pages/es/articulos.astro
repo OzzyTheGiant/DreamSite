@@ -9,8 +9,7 @@ import { fetchArticleList } from "@/services/directus"
 // for importing local articles
 // const article: any = articles.find(article => article.id.toString() === Astro.params.id.toString())
 
-const lang = Astro.url.pathname.split("/")[0]
-const articles = await fetchArticleList()
+const articles = await fetchArticleList("es")
 ---
 
-<Page lang={lang.length == 2 ? lang : undefined} articles={articles}/>
+<Page lang={"es"} articles={articles}/>
