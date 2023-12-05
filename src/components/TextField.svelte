@@ -12,11 +12,11 @@
   {:else}
     <Input
       {required}
-      unWrappedClass={multiline ? unWrappedClass : undefined}
+      {name}
+      {placeholder}
+      {value}
       id={name}
-      name={name}
-      placeholder={placeholder}
-      value={value}
+      defaultClass={`input ${classes}`}
       color={errors ? "red" : "base"}>
       <Fa slot="left" icon={icon}/>
     </Input>
@@ -44,21 +44,27 @@ export let required: boolean | undefined = undefined
 export let multiline: boolean | undefined = undefined
 export let icon: IconDefinition = faPenToSquare
 
-let unWrappedClass = ""
-
-$: if (errors) {
-    unWrappedClass = `
-      ${classes} block w-full disabled:cursor-not-allowed disabled:opacity-50 p-2.5 
-      focus:ring-red-500 focus:border-red-500 dark:focus:ring-red-500 dark:focus:border-red-500 
-      bg-red-50 text-red-900 placeholder-red-700 dark:text-red-500 dark:placeholder-red-500 
-      dark:bg-gray-700 border-red-500 dark:border-red-400 text-sm rounded-lg
-    `
-  } else {
-    unWrappedClass = `
-      ${classes} block w-full disabled:cursor-not-allowed disabled:opacity-50 p-2.5 
-      focus:border-primary-500 focus:ring-primary-500 dark:focus:border-primary-500 
-      dark:focus:ring-primary-500 bg-gray-50 text-gray-900 dark:bg-gray-700 dark:text-white 
-      dark:placeholder-gray-400 border-gray-300 dark:border-gray-600 text-sm rounded-lg
-    `
-  }
+$: unWrappedClass = `${classes} ${errors ? "error" : "normal"}`
 </script>
+
+<style global lang="postcss">
+.input {
+  @apply block w-full disabled:cursor-not-allowed disabled:opacity-50 mb-4;
+}
+
+textarea.error {
+  @apply block w-full disabled:cursor-not-allowed disabled:opacity-50 p-2.5;
+  @apply focus:ring-red-500 focus:border-red-500 dark:focus:ring-red-500;
+  @apply dark:focus:border-red-500 bg-red-50 text-red-900 placeholder-red-700;
+  @apply dark:text-red-500 dark:placeholder-red-500;
+  @apply dark:bg-gray-700 border-red-500 dark:border-red-400 text-sm rounded-lg;
+}
+
+textarea.normal {
+  @apply block w-full disabled:cursor-not-allowed disabled:opacity-50 p-2.5;
+  @apply focus:border-primary-500 focus:ring-primary-500 dark:focus:border-primary-500;
+  @apply dark:focus:ring-primary-500 bg-gray-50 text-gray-900 dark:bg-gray-700;
+  @apply dark:text-white dark:placeholder-gray-400 border-gray-300 dark:border-gray-600;
+  @apply text-sm rounded-lg;
+}
+</style>
