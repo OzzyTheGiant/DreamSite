@@ -1,4 +1,4 @@
-<div id="map" class={mapClass}></div>
+<div id="map" class={`${mapClass} rounded`}></div>
 
 <script lang="ts">
 // BUG https://github.com/Leaflet/Leaflet/issues/4968
@@ -16,6 +16,7 @@ export let onPan: CallableFunction | undefined = undefined
 
 let map: L.Map
 let markers: { [key: string]: L.Marker }
+let hasInitialized = false
 
 $: $currentLocation && switchLocation()
 
@@ -26,7 +27,8 @@ function panMapView(): void {
 export function switchLocation(): void {
   panMapView()
   if (onPan) onPan()
-  document.getElementById("map")!.scrollIntoView();
+  if (hasInitialized) document.getElementById("map")!.scrollIntoView()
+  else hasInitialized = true
 }
 
 onMount(() => {
