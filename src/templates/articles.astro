@@ -2,8 +2,9 @@
 import { t } from "i18next"
 import dayjs from "dayjs"
 import LocalizedFormat from "dayjs/plugin/localizedFormat"
+import type { Article } from "@/models/Article.d"
 import Layout from '@/layouts/Layout.astro'
-import ArticleList, { type Article } from "@/components/ArticleList.svelte"
+import ArticleList from "@/components/ArticleList.svelte"
 import "dayjs/locale/es"
 
 interface Props {

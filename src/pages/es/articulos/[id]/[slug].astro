@@ -1,7 +1,7 @@
 ---
 import Page from "@/templates/article.astro"
 import { fetchArticleList, fetchArticleByID } from "@/services/directus"
-import type { Article } from "@/components/ArticleList.svelte";
+import type { Article } from "@/models/Article"
 
 // If creating local articles, create a file like this one below and ensure that it is an array of 
 // Article objects. See the type definition in the ArticleList component

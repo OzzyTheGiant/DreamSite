@@ -1,5 +1,6 @@
-import { type Article } from '@/components/ArticleList.svelte'
-import { createDirectus, rest, readItems, readItem } from '@directus/sdk'
+import { type Article } from '@/models/Article.d'
+import { type Comment } from '@/models/Comment.d'
+import { createDirectus, rest, readItems, readItem, createItem } from '@directus/sdk'
 
 const client = createDirectus(import.meta.env.PUBLIC_URL).with(rest())
 
@@ -32,4 +33,14 @@ export async function fetchArticleByID(id: string | number): Promise<Article> {
   return (await client.request(
     readItem("articles", id, { fields: ["*.*", "category.translations.*"] })
   )) as Article
+}
+
+export async function fetchCommentsByArticleID(id: string | number): Promise<Comment[]> {
+  return (await client.request(
+    readItems("comments", { filter: { article: id } })
+  )) as Comment[]
+}
+
+export async function submitArticleComment(data: Comment): Promise<any> {
+  return (await client.request(createItem("comments", data)))
 }

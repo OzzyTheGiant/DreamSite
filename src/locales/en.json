@@ -129,6 +129,12 @@
     "title": "Articles",
     "description": "These are the latest insights web and mobile development"
   },
+  "article": {
+    "comments": "Comments",
+    "reply": "Reply",
+    "post_comment": "Post Comment",
+    "post_success": "Comment posted successfully. Comment is under review."
+  },
   "contact": {
     "title": "Contact Us",
     "description": "Looking to get a new website or app for your business? Contact me for questions, recommendations, turn around times, and custom pricing agreements",

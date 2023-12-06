@@ -2,7 +2,8 @@
 import { convertMDtoHTML } from "@/services/marked"
 import Layout from "@/layouts/Layout.astro"
 import ArticleComponent from "@/components/Article.svelte"
-import type { Article as ArticleData } from "@/components/ArticleList.svelte";
+import type { Article as ArticleData } from "@/models/Article"
+import { t } from "i18next"
 
 interface Props {
   article: ArticleData
@@ -19,7 +20,6 @@ if (translation) {
   article.content = translation.content
 }
 
-
 // Use the line below if you wish to import local Markdown files
 // if (article) article.content = (await import(`../content/${article?.slug}.md`)).compiledContent()
 
@@ -34,5 +34,16 @@ article.author.profilePicture = "https://placehold.co/32x32"
 ---
 
 <Layout title={article.title} description={article.lead!}>
-  <ArticleComponent client:load article={article as Required<ArticleData>}/>
+  <ArticleComponent 
+    client:load 
+    {language}
+    article={article as Required<ArticleData>}
+    commentsTitle={t("article.comments")}
+    nameLabel={t("contact.fields.name")}
+    emailLabel={t("contact.fields.email")}
+    messageLabel={t("contact.fields.message")}
+    replyLabel={t("article.reply")}
+    submitLabel={t("article.post_comment")}
+    successMessage={t("article.post_success")}
+    errorMessage={t("contact.messages.error")}/>
 </Layout>
