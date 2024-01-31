@@ -135,6 +135,13 @@
     "post_comment": "Publicar Comentario",
     "post_success": "Comentario publicado exitosamente. El comentario esta bajo revisión."
   },
+  "shop": {
+    "title": "Tienda",
+    "description": "Tenemos una variedad de productos almacenados",
+    "category_filter_label": "Seleccione Categoría...",
+    "tag_filter_label": "Seleccione Etiqueta...",
+    "product_card_button_label": "Ver Producto"
+  },
   "contact": {
     "title": "Contactenos",
     "description": "¿Planéa conseguir un nuevo sitio web o aplicación para su negocio? Contacteme para cualquier pregunta, recomendacion, tiempo de devolución y acuerdos personales de precios",

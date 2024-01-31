@@ -135,6 +135,13 @@
     "post_comment": "Post Comment",
     "post_success": "Comment posted successfully. Comment is under review."
   },
+  "shop": {
+    "title": "Shop",
+    "description": "We have a variety of products in store",
+    "category_filter_label": "Select Category...",
+    "tag_filter_label": "Select Tag...",
+    "product_card_button_label": "View Product"
+  },
   "contact": {
     "title": "Contact Us",
     "description": "Looking to get a new website or app for your business? Contact me for questions, recommendations, turn around times, and custom pricing agreements",

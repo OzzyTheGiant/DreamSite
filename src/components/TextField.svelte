@@ -1,5 +1,7 @@
 <div>
+  {#if label}
   <Label for={name} class="font-bold block mb-2">{label}</Label>
+  {/if}
   {#if multiline}
     <Textarea
       {required}
@@ -17,7 +19,8 @@
       {value}
       id={name}
       defaultClass={`input ${classes}`}
-      color={errors ? "red" : "base"}>
+      color={errors ? "red" : "base"}
+      on:input={emitInputEvent}>
       <Fa slot="left" icon={icon}/>
     </Input>
   {/if}
@@ -27,6 +30,7 @@
 </div>
 
 <script lang="ts">
+import { createEventDispatcher } from "svelte"
 import { faPenToSquare, type IconDefinition } from "@fortawesome/free-solid-svg-icons"
 import Label from "flowbite-svelte/Label.svelte"
 import Input from "flowbite-svelte/Input.svelte"
@@ -35,8 +39,8 @@ import Textarea from "flowbite-svelte/Textarea.svelte"
 import Fa from "svelte-fa"
 
 export let name: string
-export let label: string
 export let value: string
+export let label: string | undefined = undefined
 export let classes: string | undefined = undefined
 export let errors: string[] | undefined = undefined
 export let placeholder: string | undefined = undefined
@@ -44,7 +48,13 @@ export let required: boolean | undefined = undefined
 export let multiline: boolean | undefined = undefined
 export let icon: IconDefinition = faPenToSquare
 
+const dispatchEvent = createEventDispatcher()
+
 $: unWrappedClass = `${classes} ${errors ? "error" : "normal"}`
+
+function emitInputEvent(event: Event): void {
+  dispatchEvent("input", (event.target as HTMLInputElement)?.value)
+}
 </script>
 
 <style global lang="postcss">

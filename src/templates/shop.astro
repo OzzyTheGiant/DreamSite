@@ -1,0 +1,82 @@
+---
+import { t } from "i18next"
+import { Product } from "@/models/Product"
+import Layout from "@/layouts/Layout.astro"
+import CallToAction from "@/components/CallToAction.svelte"
+import ProductList from "@/components/ProductList.svelte"
+
+const categories = [
+  { id: 1, name: "Test Category" },
+  { id: 2, name: "Test Category 2" }
+]
+
+const tags = [
+  { id: 1, name: "Test Tag" },
+  { id: 2, name: "Test Tag 2"}
+]
+
+const products: Product[] = [
+  {
+    id: 1,
+    title: "Test Product",
+    url: "/api/test-product",
+    price_default: 49.99,
+    description: "A sample product",
+    sold_alone: false,
+    shipping_rule: {
+      id: 1,
+      rule_name: "Flat Rate",
+      rate: 5,
+      priority_rate: 8,
+      item_threshold: 3,
+      price_threshold: 120,
+      discount_amount: 100,
+    },
+    categories,
+    tags,
+  },
+  {
+    id: 2,
+    title: "Hot Product",
+    url: "/api/test-product-2",
+    price_default: 59.99,
+    description: "A sample product",
+    sold_alone: false,
+    shipping_rule: {
+      id: 1,
+      rule_name: "Flat Rate",
+      rate: 5,
+      priority_rate: 8,
+      item_threshold: 3,
+      price_threshold: 120,
+      discount_amount: 100,
+    },
+    categories: [categories[0]],
+    tags: [tags[0]],
+  }
+] as Product[]
+---
+
+<Layout title={t("shop.title") + " - "} description={t("shop.description")}>
+  <section id="headline" class="section text-center">
+    <div class="2xl:container 2xl:mx-auto">
+      <h1 class="text-white text-4xl md:text-5xl my-16">Shop</h1>
+    </div>
+  </section>
+
+  <ProductList
+    client:load
+    products={products}
+    categories={categories}
+    tags={tags}
+    productCardButtonLabel={t("shop.product_card_button_label")}
+    categoryFilterLabel={t("shop.category_filter_label")}
+    tagFilterLabel={t("shop.tag_filter_label")}/>
+
+  <CallToAction
+    type="heading"
+    title={t("call_to_action.title")}
+    description={t("call_to_action.description")}
+    buttonText={t("call_to_action.button_text")}
+    buttonLink={t("call_to_action.button_link")}/>
+</Layout>
