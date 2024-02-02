@@ -5,17 +5,24 @@ export class Product {
   public price_default!: number
   public description!: string
   public sold_alone?: boolean
-  public shipping_rule!: ShippingRule
-  public categories: ProductCategory[] = []
-  public tags: ProductTag[] = []
-  // TODO: set up correct models for these properties below
-  public images: any[] = []
-  public download_file?: any
   public variations?: ProductVariation[]
   public styles?: ProductStyle[]
+  public shipping_rules!: ShippingRule[]
+  public categories: ProductCategory[] = []
+  public tags: ProductTag[] = []
+  public images: PublicFile[] = []
+  public download_file: PublicFile | null = null
 
-  public constructor(data: Partial<Product>) {
+  /** 
+   *  @param {Partial<Product>} data - The raw JSON data from API fetch
+   *  @param {boolean} recreate - On the first initialization, JSON data must be reorganized, so
+   * this parameter is to skip the reorganization since the searched propertied will no longer
+   * exist. This process is necessary because Astro for some reason removes class typing from
+   * injected props after compilation
+  */
+  public constructor(data: Partial<Product>, recreate = false) {
     Object.assign(this, data)
+    if (!recreate) this.enforceDataStructure()
   }
 
   public get pricing(): string {
@@ -26,30 +33,37 @@ export class Product {
     return "$" + this.variations?.[0].price.toFixed(2) + " - $" +
         this.variations?.[this.variations.length - 1].price.toFixed(2)
   }
+
+  /** This is to reorganize data after fetching from API */
+  public enforceDataStructure(): void {
+    this.shipping_rules = this.shipping_rules.map(rule => (rule as any).shipping_rules_id)
+    this.categories = this.categories.map(cat => (cat as any).product_categories_id)
+    this.tags = this.tags.map(tag => (tag as any).product_tags_id)
+    this.images = this.images.map(image => (image as any).directus_files_id)
+  }
 }
 
 export interface ProductCategory {
-  id: number
   name: string
 }
 
 export interface ProductTag {
-  id: number
   name: string
 }
 
-// TODO: set up correct properties for variations and styles
 export interface ProductVariation {
-  id: number
-  variation_type: string
-  name: string
+  variation_name: string
   price: number
 }
 
 export interface ProductStyle {
-  id: number
   styles_name: string
-  style_image: string
+}
+
+export interface PublicFile {
+  id: string
+  title: string
+  filename_disk: string
 }
 
 export interface ShippingRule {

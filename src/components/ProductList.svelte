@@ -17,14 +17,14 @@
 
       <Select
         class="inline-block w-full md:w-60 my-1 mr-4"
-        items={createOptions(categories, categoryFilterLabel)}
+        items={createOptions(categoryList, categoryFilterLabel)}
         disabled={!!searchKeywords}
         value={selectedCategory}
         on:change={selectCategory}/>
 
       <Select
         class="inline-block w-full md:w-60 my-1 mr-4"
-        items={createOptions(tags, tagFilterLabel)}
+        items={createOptions(tagList, tagFilterLabel)}
         disabled={!!searchKeywords}
         value={selectedTag}
         on:change={selectTag}/>
@@ -44,8 +44,8 @@
       <ProductCard
         name={product.title}
         link={product.url}
-        image={product.images?.[0]?.name ?? "https://via.placeholder.com/768x768/?text=DreamCraft"}
-        imageAlt={product.images?.[0]?.alt ?? "DreamCraft"}
+        image={getImageURL(product.images[0])}
+        imageAlt={product.images?.[0]?.title ?? "DreamCraft"}
         price={product.pricing}
         buttonText={productCardButtonLabel}/>
     {/each}
@@ -53,32 +53,34 @@
 </Section>
 
 <script lang="ts">
+import { onMount } from "svelte"
+import { faShoppingBag } from "@fortawesome/free-solid-svg-icons"
 import Select from "flowbite-svelte/Select.svelte"
 import Button from "flowbite-svelte/Button.svelte"
 import Section from "flowbite-svelte-blocks/Section.svelte"
 import SearchOutline from "flowbite-svelte-icons/SearchOutline.svelte"
-import { Product, type ProductCategory, type ProductTag } from "@/models/Product"
+import { Product, type PublicFile } from "@/models/Product"
+import { fetchProductList } from "@/services/directus"
 import ProductCard from "@/components/ProductCard.svelte"
-import TextField from "./TextField.svelte";
-import { faShoppingBag } from "@fortawesome/free-solid-svg-icons";
-// import ExcludeBakeSale from "@/mixins/exclude-bake-sale"
+import TextField from "@/components/TextField.svelte"
 
 export let categoryFilterLabel: string
 export let tagFilterLabel: string
 export let productCardButtonLabel: string
+export let apiURL: string
 export let products: Product[]
-export let categories: ProductCategory[]
-export let tags: ProductTag[]
+export let categories: string[]
+export let tags: string[]
 
-let selectedCategory: number | undefined = undefined
-let selectedTag: number | undefined = undefined
+let selectedCategory: string | undefined = undefined
+let selectedTag: string | undefined = undefined
 let searchKeywords = ""
 let isSearching = false
+let productList = products
+let categoryList = categories
+let tagList = tags
   
 $: filteredProducts = (() => {
-  // remove Bake Sale products
-  let productList = products // this.excludeBakeSaleProducts()
-
   if (productList.length) {
     // filter by search keywords or by category or tag
     if (isSearching && !!searchKeywords) {
@@ -92,13 +94,11 @@ $: filteredProducts = (() => {
         let tagMatches = true
 
         if (product.categories && selectedCategory) {
-            categoryMatches = !!product.categories.find(
-                category => category.id === selectedCategory
-            )
+            categoryMatches = !!product.categories.find(cat => cat.name === selectedCategory)
         }
         
         if (product.tags && selectedTag) {
-            tagMatches = !!product.tags.find(tag => tag.id === selectedTag)
+            tagMatches = !!product.tags.find(tag => tag.name === selectedTag)
         }
 
         return categoryMatches && tagMatches
@@ -107,24 +107,29 @@ $: filteredProducts = (() => {
   }
 
   // This is necessary because passing props from Astro causes array items to lose their class type
-  return productList.map(product => new Product(product))
+  return productList.map(product => new Product(product, true))
 })()
 
-function createOptions(
-  items: { [key: string]: any },
-  placeholder: string
-): { value: any, name: string }[] {
-  return [{ value: undefined, name: placeholder }].concat(
-    items.map((item: { [key: string]: any }) => ({ value: item.id, name: item.name }))
+
+function getImageURL(image: PublicFile): string {
+  if (!image) return "https://via.placeholder.com/768x768/?text=DreamCraft"
+
+  const filename = image.filename_disk.split(".")[1]
+  return `${apiURL}/assets/${image.id}/${image.title}.${filename[1]}`
+}
+
+function createOptions(items: string[], placeholder: string): { value: any, name: string }[] {
+  return [{ value: undefined as any, name: placeholder }].concat(
+    items.map((item: string) => ({ value: item, name: item }))
   )
 }
 
 function selectCategory(event: Event): void {
-  selectedCategory = parseInt((event.target as HTMLSelectElement)?.value ?? -1)
+  selectedCategory = (event.target as HTMLSelectElement)?.value
 }
 
 function selectTag(event: Event): void {
-  selectedTag = parseInt((event.target as HTMLSelectElement)?.value ?? -1)
+  selectedTag = (event.target as HTMLSelectElement)?.value
 }
   
 function clearFilters() {
@@ -132,5 +137,23 @@ function clearFilters() {
   selectedTag = undefined
   searchKeywords = ""
 }
+
+onMount(async () => {
+  const products = await fetchProductList()
+
+  if (products) {
+    productList = products
+    categoryList = []
+    tagList = []
+
+    // recreate list of categories and tags for filter fields
+    for (const product of products) {
+      const categories = product.categories.map(cat => cat.name)
+      const tags = product.tags.map(tag => tag.name)
+      categoryList = categoryList.concat(categories)
+      tagList = tagList.concat(tags)
+    }
+  }
+})
 </script>
   

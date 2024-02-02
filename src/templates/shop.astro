@@ -1,60 +1,21 @@
 ---
 import { t } from "i18next"
 import { Product } from "@/models/Product"
+import { fetchProductList } from "@/services/directus"
 import Layout from "@/layouts/Layout.astro"
 import CallToAction from "@/components/CallToAction.svelte"
 import ProductList from "@/components/ProductList.svelte"
 
-const categories = [
-  { id: 1, name: "Test Category" },
-  { id: 2, name: "Test Category 2" }
-]
+const products: Product[] = await fetchProductList()
+let categories: string[] = []
+let tags: string[] = []
 
-const tags = [
-  { id: 1, name: "Test Tag" },
-  { id: 2, name: "Test Tag 2"}
-]
-
-const products: Product[] = [
-  {
-    id: 1,
-    title: "Test Product",
-    url: "/api/test-product",
-    price_default: 49.99,
-    description: "A sample product",
-    sold_alone: false,
-    shipping_rule: {
-      id: 1,
-      rule_name: "Flat Rate",
-      rate: 5,
-      priority_rate: 8,
-      item_threshold: 3,
-      price_threshold: 120,
-      discount_amount: 100,
-    },
-    categories,
-    tags,
-  },
-  {
-    id: 2,
-    title: "Hot Product",
-    url: "/api/test-product-2",
-    price_default: 59.99,
-    description: "A sample product",
-    sold_alone: false,
-    shipping_rule: {
-      id: 1,
-      rule_name: "Flat Rate",
-      rate: 5,
-      priority_rate: 8,
-      item_threshold: 3,
-      price_threshold: 120,
-      discount_amount: 100,
-    },
-    categories: [categories[0]],
-    tags: [tags[0]],
-  }
-] as Product[]
+for (const product of products) {
+  const categoryList = product.categories.map(cat => cat.name)
+  const tagList = product.tags.map(tag => tag.name)
+  categories = categories.concat(categoryList)
+  tags = tags.concat(tagList)
+}
 ---
 
 <Layout title={t("shop.title") + " - "} description={t("shop.description")}>
@@ -67,8 +28,9 @@ const products: Product[] = [
   <ProductList
     client:load
     products={products}
-    categories={categories}
-    tags={tags}
+    categories={[...new Set(categories)]}
+    tags={[...new Set(tags)]}
+    apiURL={import.meta.env.PUBLIC_URL}
     productCardButtonLabel={t("shop.product_card_button_label")}
     categoryFilterLabel={t("shop.category_filter_label")}
     tagFilterLabel={t("shop.tag_filter_label")}/>
