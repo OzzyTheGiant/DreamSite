@@ -11,9 +11,10 @@ import "highlight.js/styles/shades-of-purple.min.css"
 interface Props {
   title: string
   description: string
+  meta?: { name?: string, property?: string, content: any }[]
 }
 
-const { title, description } = Astro.props;
+const { title, description, meta } = Astro.props;
 
 const navLinks = {
   [t("header.about.link")]: t("header.about.text"),
@@ -49,6 +50,7 @@ await switchSiteLanguage(Astro.url)
     <meta name="description" content={description || "Website by DreamCraft"}/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <meta name="generator" content={Astro.generator}/>
+    {meta && meta.map(item => <meta name={item.name} content={item.content}/>)}
     <!-- <meta http-equiv="refresh" content="0;url=/en/"/> -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg"/>
     <link rel="preconnect" href="https://fonts.googleapis.com">
