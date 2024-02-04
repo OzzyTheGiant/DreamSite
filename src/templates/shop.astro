@@ -27,6 +27,7 @@ for (const product of products) {
 
   <ProductList
     client:load
+    withFilters
     products={products}
     categories={[...new Set(categories)]}
     tags={[...new Set(tags)]}

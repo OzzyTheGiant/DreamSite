@@ -1,44 +1,46 @@
 <Section class="section">
   <div class="2xl:container grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-    <div class="md:col-span-2 lg:col-span-3 md:flex items-center flex-wrap">
-      <div class="my-1 mr-4 flex items-center w-full md:w-64">
-        <TextField
-          classes="!my-0"
-          name="search_field"
-          placeholder="Search Products..."
-          icon={faShoppingBag}
-          value={searchKeywords}
-          on:input={event => searchKeywords = event.detail}/>
-        
-        <Button class="w-8 h-10 ml-2 my-1" on:click={() => isSearching = true}>
-          <SearchOutline class="dark:text-white" size="md"/>
-        </Button>
+    {#if withFilters}
+      <div class="md:col-span-2 lg:col-span-3 md:flex items-center flex-wrap">
+        <div class="my-1 mr-4 flex items-center w-full md:w-64">
+          <TextField
+            classes="!my-0"
+            name="search_field"
+            placeholder="Search Products..."
+            icon={faShoppingBag}
+            value={searchKeywords}
+            on:input={event => searchKeywords = event.detail}/>
+          
+          <Button class="w-8 h-10 ml-2 my-1" on:click={() => isSearching = true}>
+            <SearchOutline class="dark:text-white" size="md"/>
+          </Button>
+        </div>
+
+        <Select
+          class="inline-block w-full md:w-60 my-1 mr-4"
+          items={createOptions(categoryList, categoryFilterLabel ?? "")}
+          disabled={!!searchKeywords}
+          value={selectedCategory}
+          on:change={selectCategory}/>
+
+        <Select
+          class="inline-block w-full md:w-60 my-1 mr-4"
+          items={createOptions(tagList, tagFilterLabel ?? "")}
+          disabled={!!searchKeywords}
+          value={selectedTag}
+          on:change={selectTag}/>
+
+        {#if searchKeywords || selectedCategory || selectedTag}
+          <Button on:click={clearFilters}>Clear Filters</Button>
+        {/if}
       </div>
 
-      <Select
-        class="inline-block w-full md:w-60 my-1 mr-4"
-        items={createOptions(categoryList, categoryFilterLabel)}
-        disabled={!!searchKeywords}
-        value={selectedCategory}
-        on:change={selectCategory}/>
-
-      <Select
-        class="inline-block w-full md:w-60 my-1 mr-4"
-        items={createOptions(tagList, tagFilterLabel)}
-        disabled={!!searchKeywords}
-        value={selectedTag}
-        on:change={selectTag}/>
-
-      {#if searchKeywords || selectedCategory || selectedTag}
-        <Button on:click={clearFilters}>Clear Filters</Button>
-      {/if}
-    </div>
-
-    <p 
+      <p 
         class="text-center text-3xl md:col-span-2 lg:col-span-3 text-white py-32 border-2 border-white" 
         class:hidden={filteredProducts.length}>
         No products found matching these filters
-    </p>
+      </p>
+    {/if}
 
     {#each filteredProducts as product (product.id)}
       <ProductCard
@@ -64,13 +66,14 @@ import { fetchProductList } from "@/services/directus"
 import ProductCard from "@/components/ProductCard.svelte"
 import TextField from "@/components/TextField.svelte"
 
-export let categoryFilterLabel: string
-export let tagFilterLabel: string
 export let productCardButtonLabel: string
 export let apiURL: string
 export let products: Product[]
-export let categories: string[]
-export let tags: string[]
+export let withFilters: boolean = false
+export let categories: string[] = []
+export let tags: string[] = []
+export let categoryFilterLabel: string | undefined = undefined
+export let tagFilterLabel: string | undefined = undefined
 
 let selectedCategory: string | undefined = undefined
 let selectedTag: string | undefined = undefined
