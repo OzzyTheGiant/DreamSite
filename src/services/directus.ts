@@ -18,7 +18,7 @@ export async function fetchArticleList(lang?: string): Promise<Partial<Article>[
     fields.push("translations.lead")
     fields.push("category.*.*")
 
-    filter.translations = { languages_id: { starts_with: lang } }
+    filter.translations = { languages_id: { _starts_with: lang } }
   } else {
     fields.push("title")
     fields.push("slug")
@@ -48,23 +48,28 @@ export async function submitArticleComment(data: Comment): Promise<any> {
 
 /* E-Commerce */
 
-// http://localhost:8055/items/products?fields=id,date_created,date_updated,title,url,description,sold_alone,variations,styles,images.directus_files_id,images.directus_files_id.*,download_file.*,categories.product_categories_id.name,tags.product_tags_id.name,shipping_rules.shipping_rules_id.*
-// http://localhost:8055/items/products?fields=id,date_created,date_updated,styles,sold_alone,translations.*,images.directus_files_id,images.directus_files_id.*,download_file.*,categories.product_categories_id.translations.*,tags.product_tags_id.translations.*,shipping_rules.shipping_rules_id.*&filter[translations][languages_code][_starts_with]=es&filter[categories][product_categories_id][translations][languages_code][_starts_with]=es&filter[tags][product_tags_id][translations][languages_code][_starts_with]=es
-export async function fetchProductList(lang?: string): Promise<Product[]> {
+// http://localhost:8055/items/products?fields=id,date_created,date_updated,title,url,description,variations,styles,images.directus_files_id,images.directus_files_id.*,categories.product_categories_id.name,tags.product_tags_id.name,shipping_rules.shipping_rules_id.*
+// http://localhost:8055/items/products?fields=id,date_created,date_updated,styles,translations.*,images.directus_files_id,images.directus_files_id.*,categories.product_categories_id.translations.*,tags.product_tags_id.translations.*,shipping_rules.shipping_rules_id.*&filter[translations][languages_code][_starts_with]=es&filter[categories][product_categories_id][translations][languages_code][_starts_with]=es&filter[tags][product_tags_id][translations][languages_code][_starts_with]=es
+export async function fetchProductList(
+  lang?: string,
+  category?: number,
+  limit = -1,
+  exclude?: number
+): Promise<Product[]> {
   const fields = [
     "id",
     "date_created",
     "date_updated",
-    "sold_alone",
     "price_default",
     "styles",
     "images.directus_files_id",
-    "images.directus_files_id.*",
-    "download_file.*",
-    "shipping_rules.shipping_rules_id.*"
+    "images.directus_files_id.*"
   ]
 
   let filter: { [key: string]: any } = {}
+
+  if (category) filter.categories = { id: { _eq: category } }
+  if (exclude) filter.id = { _neq: exclude }
 
   if (lang && lang !== "en") {
     fields.push("translations.*")
@@ -97,7 +102,23 @@ export async function fetchProductList(lang?: string): Promise<Product[]> {
     fields.push("tags.product_tags_id.name")
   }
 
-  return (await client.request(readItems("products", { fields, filter }))).map(
+  return (await client.request(readItems("products", { fields, limit, filter }))).map(
     data => new Product(data)
   )
 }
+
+// http://localhost:8055/items/products/1?fields=*.*,images.directus_files_id.*,categories.product_categories_id.name,categories.product_categories_id.translations.*,tags.product_tags_id.name,tags.product_tags_id.translations.*,shipping_rules.shipping_rules_id.*
+export async function fetchProductByID(id: number | string): Promise<Product> {
+  return new Product(await client.request(
+    readItem("products", id, { fields: [
+      "*.*",
+      "images.directus_files_id.*",
+      "categories.product_categories_id.name",
+      "categories.product_categories_id.translations.*",
+      "tags.product_tags_id.name",
+      "tags.product_tags_id.translations.*",
+      "shipping_rules.shipping_rules_id.*"
+    ]})
+  ))
+}
+

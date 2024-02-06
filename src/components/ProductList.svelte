@@ -1,5 +1,8 @@
-<Section class="section">
-  <div class="2xl:container grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+<Section>
+  {#if title}
+    <h2 class="text-4xl dark:text-white text-center mb-8">{title}</h2>
+  {/if}
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
     {#if withFilters}
       <div class="md:col-span-2 lg:col-span-3 md:flex items-center flex-wrap">
         <div class="my-1 mr-4 flex items-center w-full md:w-64">
@@ -45,8 +48,8 @@
     {#each filteredProducts as product (product.id)}
       <ProductCard
         name={product.title}
-        link={product.url}
-        image={getImageURL(product.images[0])}
+        link={`${product.id}/${product.url}`}
+        image={getImageURL(product.images[0], apiURL)}
         imageAlt={product.images?.[0]?.title ?? "DreamCraft"}
         price={product.pricing}
         buttonText={productCardButtonLabel}/>
@@ -61,14 +64,16 @@ import Select from "flowbite-svelte/Select.svelte"
 import Button from "flowbite-svelte/Button.svelte"
 import Section from "flowbite-svelte-blocks/Section.svelte"
 import SearchOutline from "flowbite-svelte-icons/SearchOutline.svelte"
-import { Product, type PublicFile } from "@/models/Product"
+import { Product } from "@/models/Product"
 import { fetchProductList } from "@/services/directus"
+import { getImageURL } from "@/services/images"
 import ProductCard from "@/components/ProductCard.svelte"
 import TextField from "@/components/TextField.svelte"
 
 export let productCardButtonLabel: string
 export let apiURL: string
 export let products: Product[]
+export let title: string | undefined = undefined
 export let withFilters: boolean = false
 export let categories: string[] = []
 export let tags: string[] = []
@@ -113,14 +118,6 @@ $: filteredProducts = (() => {
   return productList.map(product => new Product(product, true))
 })()
 
-
-function getImageURL(image: PublicFile): string {
-  if (!image) return "https://via.placeholder.com/768x768/?text=DreamCraft"
-
-  const filename = image.filename_disk.split(".")[1]
-  return `${apiURL}/assets/${image.id}/${image.title}.${filename[1]}`
-}
-
 function createOptions(items: string[], placeholder: string): { value: any, name: string }[] {
   return [{ value: undefined as any, name: placeholder }].concat(
     items.map((item: string) => ({ value: item, name: item }))
@@ -142,20 +139,22 @@ function clearFilters() {
 }
 
 onMount(async () => {
+  if (!withFilters) return
+
   const products = await fetchProductList()
 
-  if (products) {
-    productList = products
-    categoryList = []
-    tagList = []
+  if (!products) return
 
-    // recreate list of categories and tags for filter fields
-    for (const product of products) {
-      const categories = product.categories.map(cat => cat.name)
-      const tags = product.tags.map(tag => tag.name)
-      categoryList = categoryList.concat(categories)
-      tagList = tagList.concat(tags)
-    }
+  productList = products
+  categoryList = []
+  tagList = []
+
+  // recreate list of categories and tags for filter fields
+  for (const product of products) {
+    const categories = product.categories.map(cat => cat.name)
+    const tags = product.tags.map(tag => tag.name)
+    categoryList = categoryList.concat(categories)
+    tagList = tagList.concat(tags)
   }
 })
 </script>

@@ -1,0 +1,62 @@
+---
+import { t } from "i18next"
+import { type Product as ProductModel } from "@/models/Product"
+import Layout from "@/layouts/Layout.astro"
+import ProductComponent from "@/components/Product.svelte"
+import ProductList from "@/components/ProductList.svelte"
+
+interface Props {
+  product: ProductModel
+  relatedProducts: ProductModel[]
+}
+
+const { product, relatedProducts } = Astro.props
+const { href, hostname } = Astro.url
+
+const meta = [
+  { name: "description", content: product.description || product.title },
+  { property: "og:url", content: href },
+  { property: "og:type", content: "article" },
+  { property: "og:title", content: product.title, },
+  { property: "og:description", content: product.description || product.title, },
+  {
+      property: "og:image",
+      content: product.images.length ? product.images[0].title : product.title
+  },
+  {
+      property: "og:image:secure_url",
+      content: `https://${hostname}/assets/${product.images[0].filename_disk}`
+  },
+  {
+      property: "og:image:width",
+      content: product.images.length ? product.images[0].width : 768
+  },
+  {
+      property: "og:image:height",
+      content: product.images.length ? product.images[0].height : 768
+  },
+  { name: "twitter:card", content: "summary_large_image" },
+  { name: "twitter:title", content: product.title },
+  { name: "twitter:description", content: product.description || product.title },
+  { 
+      name: "twitter:image:src", 
+      content: `https://${hostname}/assets/${product.images[0].filename_disk}`
+  }
+]
+---
+
+<Layout title={product.title + " - "} description={product.description} meta={meta}>
+  <ProductComponent
+    client:load
+    product={product}
+    apiURL={import.meta.env.PUBLIC_URL}
+    pageURL={href}
+    variationsLabel={t("product.variations_label")}
+    stylesLabel={t("product.styles_label")}/>
+
+  <ProductList
+    title={t("product.similar_products")}
+    apiURL={import.meta.env.PUBLIC_URL}
+    products={relatedProducts}
+    productCardButtonLabel={t("shop.product_card_button_label")}/>
+</Layout>

@@ -5,9 +5,9 @@ export class Product {
   public price_default!: number
   public description!: string
   public sold_alone?: boolean
-  public variations?: ProductVariation[]
-  public styles?: ProductStyle[]
-  public shipping_rules!: ShippingRule[]
+  public variations: ProductVariation[] = []
+  public styles: ProductStyle[] = []
+  public shipping_rules: ShippingRule[] = []
   public categories: ProductCategory[] = []
   public tags: ProductTag[] = []
   public images: PublicFile[] = []
@@ -34,6 +34,21 @@ export class Product {
         this.variations?.[this.variations.length - 1].price.toFixed(2)
   }
 
+  public getVariationPrice(selectedVariation?: ProductVariation): string {
+    if (!this.variations.length && this.price_default) {
+        return "$" + this.price_default.toFixed(2)
+    } else if (!this.variations.length) {
+        return "$0.00"
+    }
+
+    if (!selectedVariation) {
+        return "$" + this.variations[0].price.toFixed(2) + " - $" +
+            this.variations[this.variations.length - 1].price.toFixed(2)
+    }
+
+    return "$" + (selectedVariation?.price.toFixed(2) ?? "0.00")
+  }
+
   /** This is to reorganize data after fetching from API */
   public enforceDataStructure(): void {
     this.shipping_rules = this.shipping_rules.map(rule => (rule as any).shipping_rules_id)
@@ -44,10 +59,12 @@ export class Product {
 }
 
 export interface ProductCategory {
+  id?: number
   name: string
 }
 
 export interface ProductTag {
+  id?: number
   name: string
 }
 
@@ -57,13 +74,15 @@ export interface ProductVariation {
 }
 
 export interface ProductStyle {
-  styles_name: string
+  style_name: string
 }
 
 export interface PublicFile {
   id: string
   title: string
   filename_disk: string
+  width: number | null
+  height: number | null
 }
 
 export interface ShippingRule {

@@ -142,6 +142,11 @@
     "tag_filter_label": "Seleccione Etiqueta...",
     "product_card_button_label": "Ver Producto"
   },
+  "product": {
+    "variations_label": "Seleccione medida o variación...",
+    "styles_label": "Seleccione estilo...",
+    "similar_products": "Productos Similares"
+  },
   "contact": {
     "title": "Contactenos",
     "description": "¿Planéa conseguir un nuevo sitio web o aplicación para su negocio? Contacteme para cualquier pregunta, recomendacion, tiempo de devolución y acuerdos personales de precios",

@@ -16,7 +16,7 @@
     <p class="text-main text-3xl md:text-2xl lg:text-3xl mb-4">
       <b>{price}</b>
     </p>
-    <Button link to={link}>{buttonText}</Button>
+    <Button link href={`/products/${link}`}>{buttonText}</Button>
   </div>
 </Card>
 

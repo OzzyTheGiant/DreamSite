@@ -142,6 +142,11 @@
     "tag_filter_label": "Select Tag...",
     "product_card_button_label": "View Product"
   },
+  "product": {
+    "variations_label": "Select size or variant...",
+    "styles_label": "Select style...",
+    "similar_products": "Similar Products"
+  },
   "contact": {
     "title": "Contact Us",
     "description": "Looking to get a new website or app for your business? Contact me for questions, recommendations, turn around times, and custom pricing agreements",

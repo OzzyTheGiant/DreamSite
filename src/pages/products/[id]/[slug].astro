@@ -1,0 +1,17 @@
+---
+import type { Product } from "@/models/Product"
+import { fetchProductByID, fetchProductList } from "@/services/directus"
+import Page from "@/templates/product.astro"
+
+export const getStaticPaths = async () => {
+  const articles = await fetchProductList("en")
+  return articles.map((product: Product) => ({
+    params: { id: product.id, slug: product.url }
+  }))
+}
+
+const product = await fetchProductByID(Astro.params.id!)
+const relatedProducts = await fetchProductList("en", product.categories[0].id, 3, Astro.params.id!)
+---
+
+<Page product={product} relatedProducts={relatedProducts}/>

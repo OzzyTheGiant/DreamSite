@@ -14,6 +14,7 @@
   {:else}
     <Input
       {required}
+      {type}
       {name}
       {placeholder}
       {value}
@@ -32,6 +33,7 @@
 <script lang="ts">
 import { createEventDispatcher } from "svelte"
 import { faPenToSquare, type IconDefinition } from "@fortawesome/free-solid-svg-icons"
+import type { InputType } from "flowbite-svelte"
 import Label from "flowbite-svelte/Label.svelte"
 import Input from "flowbite-svelte/Input.svelte"
 import Helper from "flowbite-svelte/Helper.svelte"
@@ -40,6 +42,7 @@ import Fa from "svelte-fa"
 
 export let name: string
 export let value: string
+export let type: InputType = "text"
 export let label: string | undefined = undefined
 export let classes: string | undefined = undefined
 export let errors: string[] | undefined = undefined
