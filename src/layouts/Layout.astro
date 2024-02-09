@@ -5,6 +5,7 @@ import Header from "@/components/Header.svelte"
 import { switchSiteLanguage } from "@/services/i18n"
 import Footer from "@/components/Footer.svelte"
 import MapView from "@/components/Map.svelte"
+import Notification from "@/components/Notification.svelte"
 import { type LinkGroup } from "@/components/Footer.svelte"
 import "highlight.js/styles/shades-of-purple.min.css"
 
@@ -76,8 +77,20 @@ await switchSiteLanguage(Astro.url)
       {linkGroups}>
       <MapView client:only {locations} slot="map" mapClass="h-48 col-span-2"/>
     </Footer>
+
+    <Notification client:load/>
   </body>
 </html>
+
+<script>
+import { $notification } from "@/store/notification"
+
+let notification = window.sessionStorage.getItem("dreamsite.notification");
+$notification.set(notification ? JSON.parse(notification) : null)
+window.sessionStorage.removeItem("dreamsite.notification")
+
+document.querySelector("html")?.classList.toggle("dark")
+</script>
 
 <style is:global lang="postcss">
   @tailwind base;
@@ -164,7 +177,3 @@ await switchSiteLanguage(Astro.url)
     @apply hidden;
   }
 </style>
-
-<script>
-document.querySelector("html")!.classList.toggle("dark")
-</script>
