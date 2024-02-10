@@ -25,6 +25,7 @@
 </span>
 
 <script lang="ts">
+// TODO: test URLS when sharing
 import { faFacebook, faTwitter } from "@fortawesome/free-brands-svg-icons"
 import Fa from "svelte-fa"
 

@@ -1,8 +1,15 @@
+import { createDirectus, rest, readItems, readItem, createItem } from '@directus/sdk'
 import { type Article } from '@/models/Article.d'
 import { type Comment } from '@/models/Comment.d'
-import { Product } from '@/models/Product'
-import { createDirectus, rest, readItems, readItem, createItem } from '@directus/sdk'
+import type { OrderItem } from '@/models/Order'
+import { Product, type ShippingRule } from '@/models/Product'
 
+interface CartResponseData {
+  cart: OrderItem[]
+  message: string
+}
+
+const BASE_URL = import.meta.env.PUBLIC_APP_URL
 const client = createDirectus(import.meta.env.PUBLIC_URL).with(rest())
 
 // http://localhost:8055/items/articles?fields=id,date_created,title,slug,lead,author.*,image.*,category.id,category.name
@@ -122,3 +129,27 @@ export async function fetchProductByID(id: number | string): Promise<Product> {
   ))
 }
 
+export async function fetchCart(): Promise<CartResponseData> {
+  try {
+    const response = await fetch(BASE_URL + "/carts")
+    return (await response.json() as CartResponseData)
+  } catch (error: any) {
+    console.error(error)
+    return { cart: [], message: "Server Error: Could not fetch cart" }
+  }  
+}
+
+export async function updateCartProductList(orderItem: OrderItem): Promise<CartResponseData> {
+  try {
+    const response = await fetch(BASE_URL + "/carts", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(orderItem)
+    })
+
+    return (await response.json()) as CartResponseData
+  } catch (error: any) {
+    console.error(error)
+    return { cart: [], message: error.message }
+  }
+}

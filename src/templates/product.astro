@@ -4,6 +4,7 @@ import { type Product as ProductModel } from "@/models/Product"
 import Layout from "@/layouts/Layout.astro"
 import ProductComponent from "@/components/Product.svelte"
 import ProductList from "@/components/ProductList.svelte"
+import { getShopNotificationTranslations } from "@/services/i18n"
 
 interface Props {
   product: ProductModel
@@ -52,7 +53,8 @@ const meta = [
     apiURL={import.meta.env.PUBLIC_URL}
     pageURL={href}
     variationsLabel={t("product.variations_label")}
-    stylesLabel={t("product.styles_label")}/>
+    stylesLabel={t("product.styles_label")}
+    notificationTranslations={getShopNotificationTranslations()}/>
 
   <ProductList
     title={t("product.similar_products")}

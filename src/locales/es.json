@@ -140,7 +140,12 @@
     "description": "Tenemos una variedad de productos almacenados",
     "category_filter_label": "Seleccione Categoría...",
     "tag_filter_label": "Seleccione Etiqueta...",
-    "product_card_button_label": "Ver Producto"
+    "product_card_button_label": "Ver Producto",
+    "added_product_to_cart": "Producto agregado a carrito",
+    "product_unavailable": "El producto a sido indisponible recientementew",
+    "variant_unavailable": "La variacíon o estilo seleccionado ya no está disponible. Datos de producto actualizados",
+    "cart_not_found": "El carrito no pudo ser encontrado. Uno nuevo ha sido creado",
+    "cart_items_removed": "Alugnos objetos en el carrito ya no estan disponibles y fueron eliminardos"
   },
   "product": {
     "variations_label": "Seleccione medida o variación...",

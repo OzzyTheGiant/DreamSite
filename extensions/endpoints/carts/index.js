@@ -6,6 +6,16 @@
 /** @typedef {import("./Cart").Cart} Cart */
 /** @typedef {import("./Order").OrderItem} OrderItem */
 /** @typedef {import("./Product").Product} Product */
+/** @typedef {import("./Product").ProductVariation} ProductVariation */
+/** @typedef {import("./Product").ProductStyle} ProductStyle */
+
+const cookieOptions = {
+  httpOnly: true,
+  domain: process.env.COOKIE_DOMAIN,
+  expires: new Date(Date.now() + (parseInt(process.env.CART_SESSION_TIME ?? "43200000"))),
+  maxDate: parseInt(process.env.CART_SESSION_TIME ?? "43200000"),
+  secure: process.env.APP_ENV === "production"
+}
 
 class HttpError extends Error {
   /**
@@ -34,48 +44,59 @@ export default function registerCartEndpoints(router, context) {
  * @param {{ [key: string]: any }} context - Directus context object
  */
 async function manageCart(request, response, context) {
+  const cartID = request.cookies.cart
+
   try {
-    let cartID = request.signedCookies.cart
     let { cart, message } = await synchronizeCart(cartID, context.database)
 
     switch (request.method) {
-      case "POST": 
-        cart.push(request.body)
-      case "PUT":
-        const index = cart.findIndex(item => item.product_id === request.body.product_id)
-        if (index >= 0) cart = cart.splice(index, 1, request.body)
+      case "POST":
+        cart = await synchronizeProductData(request.body, cart, context)
+        console.log(cart)
+        break
       case "DELETE":
-        cart = cart.filter(item => item.id !== request.body.product_id)
+        cart = cart.filter(item => item.id !== request.body.product_id); break
       default: break
     }
 
-    await context.database("cart").where("id", cartID).update({
-      products: cart,
-      last_updated: new Date().toISOString()
-    })
+    await context.database("carts")
+      .where("id", cartID)
+      .update({ products: JSON.stringify(cart), last_accessed: Date.now() })
 
-    response.cookie("cart", cartID, {
-      httpOnly: true,
-      signed: true,
-      expires: new Date(Date.now() + (parseInt(process.env.CART_SESSION_TIME ?? "43200000"))),
-      secure: process.env.APP_ENV === "production"
-    }).json({ cart, message })
+    response.cookie("cart", cartID, cookieOptions).json({ cart, message })
   } catch (error) {
     if (error.message === "cart_not_found") {
-      const { ItemsService } = context.services
-      const itemsService = new ItemsService("cart", { 
-        schema: await context.getSchema(),
-        accountability: null
-      })
+      const cart = await createCart(context)
 
-      /** @type Cart */
-      const cart = itemsService.createOne({})
-      
-      return response.json(cart.products)
+      return response
+        .cookie("cart", cart.id, cookieOptions)
+        .json({ cart: cart.products, message: null })
     }
-    
-    return response.status(error.status).json({ message: error.message })
+
+    if (["product_not_found", "variant_not_found"].indexOf(error.message) >= 0) {
+      return response.status(error.code).json({ message: error.message })
+    }
+
+    console.error(error)
+    return response.status(error.code ?? error.status ?? 500).json({ message: error.message })
   }
+}
+
+/** Creates new Cart in database
+ * @param {{ [key: string]: any }} context - Directus context object
+ * @returns {Promise<Cart>}
+ */
+async function createCart(context) {
+  const { ItemsService } = context.services
+
+  const itemsService = new ItemsService("carts", {
+    schema: await context.getSchema(),
+    accountability: null
+  })
+
+  /** @type string */
+  const cartID = await itemsService.createOne({})
+  return itemsService.readOne(cartID)
 }
 
 /**
@@ -84,8 +105,10 @@ async function manageCart(request, response, context) {
  * @param {Knex} database - A Knex query builder instance
  */
 async function synchronizeCart(id, database) {
-  /** @type OrderItem[] */
-  let cart = await database("carts").where({ id }).first()
+  if (!id) throw new HttpError("cart_not_found", 404)
+
+  /** @type Cart */
+  let cart = await database("carts").where("id", id).first()
   /** @type OrderItem[] */
   let syncedCart = []
   let updatedCart = false
@@ -94,9 +117,13 @@ async function synchronizeCart(id, database) {
 
   if (!cart) throw new HttpError("cart_not_found", 404);
 
-  for (const item of cart) {
+  for (const item of JSON.parse(cart.products)) {
     /** @type Product */
-    const product = await database("products").where({ id: item.product_id }).first()
+    const product = await database("products").where("id", item.product_id).first()
+    /** @ts-ignore @type ProductVariation[] */
+    const variations = JSON.parse(product.variations)
+    /** @ts-ignore @type ProductStyle[] */
+    const styles = JSON.parse(product.styles)
 
     if (!product) {
       updatedCart = true
@@ -105,12 +132,10 @@ async function synchronizeCart(id, database) {
     }
 
     const selectedVariation = item.variation ? 
-      product.variations.find(variation => variation.variation_name === item.variation) :
+      variations.find(variation => variation.variation_name === item.variation) :
       null
 
-    const selectedStyle = item.style ?
-      product.styles.find(style => style.style_name === item.style):
-      null
+    const selectedStyle = item.style ? styles.find(style => style.style_name === item.style) : null
 
     if (selectedVariation === undefined || selectedStyle === undefined) {
       updatedCart = true
@@ -129,8 +154,54 @@ async function synchronizeCart(id, database) {
   }
 
   if (updatedCart) {
-    database("carts").where("id", id).update("products", syncedCart)
+    database("carts").where("id", id).update("products", JSON.stringify(syncedCart))
   }
 
   return { cart: syncedCart, message }
+}
+
+/**
+ * Check that submitted product data still exists in database and if so, add to cart if not in cart,
+ * else update quantity and price
+ * 
+ * @param {OrderItem} item - The Order Item's data that was submitted in the web request
+ * @param {OrderItem[]} cart - The current cart product list
+ * @param {{ [key: string]: any }} context - Directus context object
+ * @returns {Promise<OrderItem[]>} - The updated cart product list to be saved later
+ */
+async function synchronizeProductData(item, cart, context) {
+  /** @type Product */
+  const product = await context.database("products").where("id", item.product_id).first()
+
+  if (!product) throw new HttpError("product_not_found", 404)
+
+  /** @ts-ignore @type ProductVariation[] */
+  const variations = JSON.parse(product.variations)
+  /** @ts-ignore @type ProductStyle[] */
+  const styles = JSON.parse(product.styles)
+  
+  const selectedVariation = item.variation ? 
+      variations.find(variation => variation.variation_name === item.variation) :
+      null
+
+  const selectedStyle = item.style ? styles.find(style => style.style_name === item.style) : null
+
+  if (selectedVariation === undefined || selectedStyle === undefined) {
+    throw new HttpError("variant_not_found", 404)
+  }
+
+  // at this point, the product and the selected variation and style are guaranteed to exist
+  // so now check that the submitted order item is in cart
+  const index = cart.findIndex(cartItem => (
+    cartItem.product_id === item.product_id &&
+    cartItem.variation === item.variation &&
+    cartItem.style === item.style
+  ))
+
+  if (index >= 0) {
+    cart[index].quantity = item.quantity + cart[index].quantity
+    cart[index].price = selectedVariation?.price ?? product.price_default
+  } else cart.push(item)
+
+  return cart
 }

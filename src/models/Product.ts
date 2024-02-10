@@ -5,9 +5,9 @@ export class Product {
   public price_default!: number
   public description!: string
   public sold_alone?: boolean
+  public shipping_rule!: ShippingRule
   public variations: ProductVariation[] = []
   public styles: ProductStyle[] = []
-  public shipping_rules: ShippingRule[] = []
   public categories: ProductCategory[] = []
   public tags: ProductTag[] = []
   public images: PublicFile[] = []
@@ -51,7 +51,6 @@ export class Product {
 
   /** This is to reorganize data after fetching from API */
   public enforceDataStructure(): void {
-    this.shipping_rules = this.shipping_rules.map(rule => (rule as any).shipping_rules_id)
     this.categories = this.categories.map(cat => (cat as any).product_categories_id)
     this.tags = this.tags.map(tag => (tag as any).product_tags_id)
     this.images = this.images.map(image => (image as any).directus_files_id)

@@ -12,7 +12,7 @@ dotenv.config()
 
 // https://astro.build/config
 export default defineConfig({
-  site: process.env.APP_URL,
+  site: process.env.PUBLIC_APP_URL,
   integrations: [svelte(), tailwind(), i18n(), sitemap()],
   server: {
     port: 8080
@@ -20,8 +20,16 @@ export default defineConfig({
   vite: {
     server: {
       proxy: {
-        "/api": {
-          target: "http://localhost:8000",
+        "/items": {
+          target: "http://localhost:8055",
+          changeOrigin: true,
+        },
+        "/carts": {
+          target: "http://localhost:8055",
+          changeOrigin: true,
+        },
+        "/assets": {
+          target: "http://localhost:8055",
           changeOrigin: true,
         }
       }

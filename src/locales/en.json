@@ -140,7 +140,12 @@
     "description": "We have a variety of products in store",
     "category_filter_label": "Select Category...",
     "tag_filter_label": "Select Tag...",
-    "product_card_button_label": "View Product"
+    "product_card_button_label": "View Product",
+    "added_product_to_cart": "Added product to cart",
+    "product_unavailable": "Product was recently made unavailable",
+    "variant_unavailable": "Selected variation or style is no longer available. Refreshed product data",
+    "cart_not_found": "Cart could not be found. New one was created",
+    "cart_items_removed": "Some items in cart are no longer available and were removed"
   },
   "product": {
     "variations_label": "Select size or variant...",

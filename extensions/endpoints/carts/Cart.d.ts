@@ -2,6 +2,6 @@ import type { OrderItem } from "./Order"
 
 export interface Cart {
   id: string
-  products: OrderItem[]
+  products: string // json data
   last_accessed: string
 }

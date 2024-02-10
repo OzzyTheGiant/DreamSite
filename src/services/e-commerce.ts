@@ -1,20 +1,36 @@
 import type { OrderItem } from "@/models/Order"
-import type { ShippingRule } from "@/models/Product"
+import { fetchCart, updateCartProductList } from "@/services/directus"
+import { warning, info } from "@/store/notification"
 
-export function getProductFromCart(productID: number): OrderItem | undefined {
- // TODO: fetch product from cart
- return undefined
+export async function getProductFromCart(
+  productID: number,
+  t: { [key: string]: string }
+): Promise<OrderItem | undefined> {
+ const { cart, message } = await fetchCart()
+
+ if (message) warning(t[message] ?? message)
+
+ return cart?.find(item => item.product_id === productID)
 }
 
-export function addProductToCart(orderItem: OrderItem, shippingRules: ShippingRule[]): void {
-  // TODO: determine which shipping rule gets highest priority; this will become the one and only shipping rule
-  // consider discussing with shop owner
+export async function updateCartProduct(
+  orderItem: OrderItem,
+  t: { [key: string]: string }
+): Promise<string | void> {
+  const response = await updateCartProductList(orderItem)
+  const storageKey = "dreamsite.notification"
 
+  if (response.message === "product_not_found") {
+    const notification = { type: "error", message: t["product_unavailable"] }
+    sessionStorage.setItem(storageKey, JSON.stringify(notification))
+    return window.location.assign("/shop")
+  }
 
-  // TODO: save cart to Directus
+  if (response.message === "variant_not_found") {
+    info(t["variant_unavailable"])
+    return response.message
+  }
 
-
-
-  // TODO: store notification in sessionStorage to announce that product was added on the next page
-  // this.$vToastify.success("Added product to cart")
+  const notification = { type: "success", message: t["added_product_to_cart"] }
+  sessionStorage.setItem(storageKey, JSON.stringify(notification))
 }
