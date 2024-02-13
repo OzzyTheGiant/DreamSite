@@ -4,7 +4,7 @@ import { type Product as ProductModel } from "@/models/Product"
 import Layout from "@/layouts/Layout.astro"
 import ProductComponent from "@/components/Product.svelte"
 import ProductList from "@/components/ProductList.svelte"
-import { getShopNotificationTranslations } from "@/services/i18n"
+import { getTranslationsByKeys } from "@/services/i18n"
 
 interface Props {
   product: ProductModel
@@ -44,6 +44,14 @@ const meta = [
       content: `https://${hostname}/assets/${product.images[0].filename_disk}`
   }
 ]
+
+const translations = getTranslationsByKeys("shop", [
+  "added_product_to_cart",
+  "cart_not_found",
+  "cart_items_removed",
+  "product_unavailable",
+  "variant_unavailable",
+])
 ---
 
 <Layout title={product.title + " - "} description={product.description} meta={meta}>
@@ -54,7 +62,7 @@ const meta = [
     pageURL={href}
     variationsLabel={t("product.variations_label")}
     stylesLabel={t("product.styles_label")}
-    notificationTranslations={getShopNotificationTranslations()}/>
+    notificationTranslations={translations}/>
 
   <ProductList
     title={t("product.similar_products")}

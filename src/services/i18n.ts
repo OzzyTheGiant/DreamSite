@@ -35,20 +35,11 @@ export async function switchSiteLanguage(url: URL): Promise<void> {
   else await i18next.changeLanguage("en")
 }
 
-export function getShopNotificationTranslations(): {[key: string]: string} {
-  const keys = [
-    "added_product_to_cart",
-    "cart_not_found",
-    "cart_items_removed",
-    "product_unavailable",
-    "variant_unavailable",
-  ]
-
+export function getTranslationsByKeys(module: string, keys: string[]): {[key: string]: string} {
   const trans =  keys.reduce((map, key) => {
-    map[key] = i18next.t("shop." + key)
+    map[key] = i18next.t(`${module}.${key}`)
     return map
   }, {} as { [key: string]: string } )
 
-  console.log(trans)
   return trans
 }
