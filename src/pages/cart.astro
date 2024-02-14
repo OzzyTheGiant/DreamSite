@@ -1,0 +1,27 @@
+---
+import { t } from "i18next"
+import { getTranslationsByKeys } from "@/services/i18n"
+import Layout from "@/layouts/Layout.astro"
+import CartTable from "@/components/Cart.svelte"
+
+const meta = [
+  { name: "robots", content: "noindex" }
+]
+
+const translations = getTranslationsByKeys("cart", [
+  "title",
+  "product",
+  "quantity",
+  "price",
+  "remove_button",
+  "checkout_button",
+  "shop_button",
+  "no_products",
+  "product_removed",
+  "product_removal_failed"
+])
+---
+
+<Layout title={t("cart.title") + " - "} description={t("cart.description")} meta={meta}>
+  <CartTable client:load translations={translations}/>
+</Layout>

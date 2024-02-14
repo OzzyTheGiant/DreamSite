@@ -152,6 +152,19 @@
     "styles_label": "Select style...",
     "similar_products": "Similar Products"
   },
+  "cart": {
+    "title": "Your Cart",
+    "description": "Here's what's in your cart",
+    "product": "Product",
+    "quantity": "Quantity",
+    "price": "Price",
+    "remove_button": "Remove",
+    "checkout_button": "Check Out Now",
+    "shop_button": "Browse the Shop",
+    "no_products": "There are no products selected. Visit our shop to add products to your cart!",
+    "product_removed": "Product removed from cart",
+    "product_removal_failed": "Server Error: Product removal failed"
+  },
   "contact": {
     "title": "Contact Us",
     "description": "Looking to get a new website or app for your business? Contact me for questions, recommendations, turn around times, and custom pricing agreements",

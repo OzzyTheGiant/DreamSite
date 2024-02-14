@@ -5,7 +5,7 @@ import type { OrderItem } from '@/models/Order'
 import { Product, type ShippingRule } from '@/models/Product'
 
 interface CartResponseData {
-  cart: OrderItem[]
+  cart?: OrderItem[]
   message: string
 }
 
@@ -147,6 +147,22 @@ export async function updateCartProductList(orderItem: OrderItem): Promise<CartR
       body: JSON.stringify(orderItem)
     })
 
+    return (await response.json()) as CartResponseData
+  } catch (error: any) {
+    console.error(error)
+    return { cart: [], message: error.message }
+  }
+}
+
+export async function deleteCartProduct(orderItem: OrderItem): Promise<CartResponseData> {
+  try {
+    const response = await fetch(BASE_URL + "/carts", {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(orderItem)
+    })
+
+    if (!response.ok) throw new Error("product_removal_failed")
     return (await response.json()) as CartResponseData
   } catch (error: any) {
     console.error(error)

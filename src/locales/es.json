@@ -18,6 +18,19 @@
       "link": "/es/contactar"
     }
   },
+  "cart": {
+    "title": "Su Carrito",
+    "description": "Esto es lo que está en su carrito",
+    "product": "Producto",
+    "quantity": "Cantidad",
+    "price": "Precio",
+    "remove_button": "Remover",
+    "checkout_button": "Pagar Ahora",
+    "shop_button": "Explorar la Tienda",
+    "no_products": "No hay productos seleccionados. Visite nuestra tienda para agregar productos a el carrito.",
+    "product_removed": "Producto removido del carrito",
+    "product_removal_failed": "Error de Sistema: Producto no pudo ser removido"
+  },
   "call-to-action": {
     "title": "Vamos a Crear Algo Increíble",
     "description": "Haga que lo encuentren con más frecuencia y brinde mejores servicios con herramientas profesionales para hacer que su negocio crezca y se destaque. ¡Empecemos a trabajar en su próximo proyecto digital!",

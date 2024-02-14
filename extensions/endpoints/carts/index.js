@@ -34,7 +34,7 @@ class HttpError extends Error {
  * @param {{ [key: string]: any }} context - Directus context object
  */
 export default function registerCartEndpoints(router, context) {
-  router.all("/:product_id?", async (req, res) => await manageCart(req, res, context))
+  router.all("/", async (req, res) => await manageCart(req, res, context))
 }
 
 /**
@@ -52,10 +52,17 @@ async function manageCart(request, response, context) {
     switch (request.method) {
       case "POST":
         cart = await synchronizeProductData(request.body, cart, context)
-        console.log(cart)
         break
-      case "DELETE":
-        cart = cart.filter(item => item.id !== request.body.product_id); break
+      case "PUT":
+        cart = cart.filter(item => 
+          item.product_id !== request.body.product_id ||
+          item.product !== request.body.product ||
+          item.variation !== request.body.variation ||
+          item.style !== request.body.style
+        )
+
+        if (!message) message = "product_removed"
+        break
       default: break
     }
 
