@@ -13,6 +13,14 @@
       "text": "Articles",
       "link": "/articles"
     },
+    "shop": {
+      "text": "Shop",
+      "link": "/shop"
+    },
+    "cart": {
+      "text": "cart",
+      "link": "/cart"
+    },
     "contact": {
       "text": "Contact",
       "link": "/contact"

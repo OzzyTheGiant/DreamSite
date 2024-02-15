@@ -23,7 +23,25 @@
       ulClass="flex flex-col lg:items-center mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0 p-2">
       
       {#each Object.entries(links) as [link, text]}
-        <NavLi href={link}>{text}</NavLi>
+        {#if text === "cart"}
+          <NavLi href={link}>
+            <span class="block relative p-1">
+              <Cart size="md"/>
+              {#if hasCart && $cart.length || cartProductCount}
+                <Indicator 
+                  border
+                  size="xl" 
+                  color="red"
+                  placement="top-right"
+                  class="text-white text-sm font-bold">
+                  {$cart.length || cartProductCount}
+                </Indicator>
+              {/if}
+            </span>
+          </NavLi>
+        {:else}
+          <NavLi href={link}>{text}</NavLi>
+        {/if}
       {/each}
 
       <NavLi>
@@ -49,13 +67,18 @@ import NavBrand from "flowbite-svelte/NavBrand.svelte"
 import NavHamburger from "flowbite-svelte/NavHamburger.svelte"
 import NavUl from "flowbite-svelte/NavUl.svelte"
 import NavLi from "flowbite-svelte/NavLi.svelte"
+import Indicator from "flowbite-svelte/Indicator.svelte"
+import Cart from "flowbite-svelte-icons/CartOutline.svelte"
 import LightBulbSolid from "flowbite-svelte-icons/LightbulbSolid.svelte"
 import LightBulbOutline from "flowbite-svelte-icons/LightbulbOutline.svelte"
+import { cart, loadCartProductCount } from "@/store/cart"
 
 export let links: { [key:string]: string }
 export let hasDarkModeButton: boolean = false
+export let hasCart: boolean = false
 
 let darkMode = false
+let cartProductCount = 0
 
 const btnClass = `
   inline-flex items-center p-2 ml-1 text-sm text-gray-500 rounded-lg lg:hidden hover:bg-gray-100 
@@ -70,5 +93,6 @@ function toggleDarkMode(): void {
 
 onMount(() => {
   if (document.querySelector("html")!.classList.contains("dark")) darkMode = true
+  if (hasCart) cartProductCount = loadCartProductCount()
 })
 </script>

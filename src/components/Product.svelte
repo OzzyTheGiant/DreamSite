@@ -62,9 +62,9 @@ import Carousel from "flowbite-svelte/Carousel.svelte"
 import Button from "flowbite-svelte/Button.svelte"
 import Section from "flowbite-svelte-blocks/Section.svelte"
 import { Product, type ProductStyle, type ProductVariation } from "@/models/Product"
-import { getProductFromCart, updateCartProduct } from "@/services/e-commerce"
 import { getCarouselImages } from "@/services/images"
 import { fetchProductByID } from "@/services/directus"
+import { getProductFromCart, updateCart } from "@/store/cart"
 import TextField from "@/components/TextField.svelte"
 import SocialMediaButtons from "@/components/SocialMediaButtons.svelte"
 import TaxonomyLists from "@/components/TaxonomyLists.svelte"
@@ -98,7 +98,7 @@ $: isButtonDisabled = (() => {
 })()
 
 async function addToCart(): Promise<void> {
-  const message = await updateCartProduct(
+  const message = await updateCart(
     {
       product_id: currentProduct.id,
       product: currentProduct.title,

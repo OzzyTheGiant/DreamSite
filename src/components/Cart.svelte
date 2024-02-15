@@ -1,7 +1,7 @@
 <Section>
   <h1 class="dark:text-white text-4xl mb-8">{translations["title"]}</h1>
 
-  {#if cart.length}
+  {#if $cart.length}
     <Table class="w-full">
       <TableHead theadClass="bg-gray-100 dark:bg-gray-700 dark:text-white">
         <TableHeadCell align="left">{translations["product"]}</TableHeadCell>
@@ -10,7 +10,7 @@
         <TableHeadCell></TableHeadCell>
       </TableHead>
       <TableBody>
-        {#each cart as orderItem}
+        {#each $cart as orderItem}
           <TableBodyRow class="border-b-2 border-secondary">
             <TableBodyCell align="left">
               <h3 class="text-xl hover:underline">
@@ -34,7 +34,7 @@
                 size="sm"
                 color="red"
                 title={translations["remove_button"]}
-                on:click={() => removeCartProduct(orderItem)}>
+                on:click={() => cartStore.removeProductFromCart(orderItem, translations)}>
                 <TrashBinSolid size="sm"/>
               </Button>
             </TableBodyCell>
@@ -45,7 +45,7 @@
         <TableBodyRow class="bg-gray-100 dark:bg-gray-700">
           <TableHeadCell align="left">Subtotal</TableHeadCell>
           <TableBodyCell colspan="2" align="right" class="text-2xl">
-            <b>${order?.subtotal.toFixed(2) ?? "0.00"}</b>
+            <b>${$subtotal.toFixed(2) ?? "0.00"}</b>
           </TableBodyCell>
           <TableBodyCell></TableBodyCell>
         </TableBodyRow>
@@ -61,7 +61,7 @@
     <ListPlaceholder divClass="bg-gray-100 dark:bg-gray-800 w-full px-4 py-8 animate-pulse"/>
   {/if}
 
-  {#if !isLoading && !cart.length}
+  {#if !isLoading && !$cart.length}
     <div class="bg-gray-200 dark:bg-gray-700 text-center px-4 py-12">
       <p class="dark:text-white text-3xl my-8">{translations["no_products"]}</p>
       <Button href="/shop">{translations["shop_button"]}</Button>
@@ -81,22 +81,15 @@ import TableBodyCell from "flowbite-svelte/TableBodyCell.svelte"
 import TrashBinSolid from "flowbite-svelte-icons/TrashBinSolid.svelte"
 import ListPlaceholder from "flowbite-svelte/ListPlaceholder.svelte"
 import Section from "flowbite-svelte-blocks/Section.svelte"
-import Order, { type OrderItem } from "@/models/Order"
-import { fetchCart } from "@/services/directus"
+import { cart, subtotal } from "@/store/cart"
+import * as cartStore from "@/store/cart"
 
 export let translations: { [key: string]: string }
 
-let order: Order | null = null
 let isLoading = true
-let cart: OrderItem[] = []
-
-async function removeCartProduct(orderItem: OrderItem): Promise<void> {
-  cart = await order?.removeCartProduct(orderItem, translations) ?? []
-}
 
 onMount(async () => {
-  order = new Order((await fetchCart()).cart ?? [])
-  cart = order?.cart
+  cartStore.loadCart()
   isLoading = false
 })
 </script>

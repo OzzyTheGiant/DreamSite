@@ -21,6 +21,8 @@ const navLinks = {
   [t("header.about.link")]: t("header.about.text"),
   [t("header.articles.link")]: t("header.articles.text"),
   [t("header.contact.link")]: t("header.contact.text"),
+  [t("header.shop.link")]: t("header.shop.text"),
+  [t("header.cart.link")]: "cart"
 }
 
 const linkGroups: LinkGroup[] = [
@@ -67,7 +69,7 @@ await switchSiteLanguage(Astro.url)
     <title>{title + t("home.title")}</title>
   </head>
   <body class="dark:bg-neutral-900">
-    <Header hasDarkModeButton client:load links={navLinks}/>
+    <Header hasDarkModeButton hasCart client:load links={navLinks}/>
     <slot/>
     <Footer
       type="socialmedia"
