@@ -13,7 +13,6 @@ const cookieOptions = {
   httpOnly: true,
   domain: process.env.COOKIE_DOMAIN,
   expires: new Date(Date.now() + (parseInt(process.env.CART_SESSION_TIME ?? "43200000"))),
-  maxDate: parseInt(process.env.CART_SESSION_TIME ?? "43200000"),
   secure: process.env.APP_ENV === "production"
 }
 
