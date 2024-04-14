@@ -1,0 +1,15 @@
+---
+import { t } from "i18next"
+import CheckoutComponent from "@/components/Checkout.svelte"
+import Layout from "@/layouts/Layout.astro"
+import { getTranslationsByKeys } from "@/services/i18n"
+
+const translations = getTranslationsByKeys("checkout", [
+  "no_products",
+  "shop_button"
+])
+---
+
+<Layout title={t("checkout.title") + " - "} description={t("checkout.description")}>
+  <CheckoutComponent client:load translations={translations}/>
+</Layout>

@@ -10,7 +10,7 @@ export const subtotal = derived(
   ($cart: OrderItem[]) => $cart.reduce((acc, item) => acc + (item.price * item.quantity), 0)
 )
 
-function getTotalQuantity(cart: OrderItem[]): number {
+export function getTotalQuantity(cart: OrderItem[]): number {
   return cart.reduce((acc, item) => acc + item.quantity, 0)
 }
 

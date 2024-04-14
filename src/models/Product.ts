@@ -95,6 +95,6 @@ export interface ShippingRule {
   price_threshold: number
   /** The number of items at which the discount is applied */
   item_threshold: number
-  /** a percentage that is discounted from the subtotal */
+  /** a percentage that is discounted from the shipping amount, usually 100% */
   discount_amount: number
 }

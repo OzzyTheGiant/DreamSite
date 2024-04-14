@@ -62,10 +62,7 @@
   {/if}
 
   {#if !isLoading && !$cart.length}
-    <div class="bg-gray-200 dark:bg-gray-700 text-center px-4 py-12">
-      <p class="dark:text-white text-3xl my-8">{translations["no_products"]}</p>
-      <Button href="/shop">{translations["shop_button"]}</Button>
-    </div>
+    <NoProductsCard message={translations["no_products"]} buttonText={translations["shop_button"]}/>
   {/if}
 </Section>
 
@@ -83,6 +80,7 @@ import ListPlaceholder from "flowbite-svelte/ListPlaceholder.svelte"
 import Section from "flowbite-svelte-blocks/Section.svelte"
 import { cart, subtotal } from "@/store/cart"
 import * as cartStore from "@/store/cart"
+import NoProductsCard from "@/components/NoProductsCard.svelte"
 
 export let translations: { [key: string]: string }
 
