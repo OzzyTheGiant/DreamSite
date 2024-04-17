@@ -24,7 +24,7 @@ export default defineConfig({
           target: "http://localhost:8055",
           changeOrigin: true,
         },
-        "/carts": {
+        "/e-commerce": {
           target: "http://localhost:8055",
           changeOrigin: true,
         },

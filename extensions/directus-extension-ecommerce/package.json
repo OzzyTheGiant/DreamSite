@@ -1,5 +1,5 @@
 {
-  "name": "directus-extension-carts",
+  "name": "directus-extension-ecommerce",
   "description": "Cart synchronization endpoints for E-Commerce",
   "icon": "extension",
   "version": "1.0.0",

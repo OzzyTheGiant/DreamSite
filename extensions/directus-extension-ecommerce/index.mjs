@@ -22,14 +22,14 @@ class HttpError extends Error {
 }
 
 export default {
-  id: "carts",
+  id: "e-commerce",
 
   /** Registers Cart synchronization endpoints for E-Commerce operations
    * @param {Router} router - Express Router
    * @param {{ [key: string]: any }} context - Directus context object
    */
   handler(router, context) {
-    router.all("/", async (req, res) => await manageCart(req, res, context))
+    router.all("/carts", async (req, res) => await manageCart(req, res, context))
   }
 }
 

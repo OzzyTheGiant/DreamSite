@@ -131,7 +131,7 @@ export async function fetchProductByID(id: number | string): Promise<Product> {
 
 export async function fetchCart(): Promise<CartResponseData> {
   try {
-    const response = await fetch(BASE_URL + "/carts")
+    const response = await fetch(BASE_URL + "/e-commerce/carts")
     return (await response.json() as CartResponseData)
   } catch (error: any) {
     console.error(error)
@@ -141,7 +141,7 @@ export async function fetchCart(): Promise<CartResponseData> {
 
 export async function updateCartProductList(orderItem: OrderItem): Promise<CartResponseData> {
   try {
-    const response = await fetch(BASE_URL + "/carts", {
+    const response = await fetch(BASE_URL + "/e-commerce/carts", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(orderItem)
@@ -156,7 +156,7 @@ export async function updateCartProductList(orderItem: OrderItem): Promise<CartR
 
 export async function deleteCartProduct(orderItem: OrderItem): Promise<CartResponseData> {
   try {
-    const response = await fetch(BASE_URL + "/carts", {
+    const response = await fetch(BASE_URL + "/e-commerce/carts", {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(orderItem)
