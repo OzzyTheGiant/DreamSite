@@ -27,14 +27,14 @@
           <NavLi href={link}>
             <span class="block relative p-1">
               <Cart size="md"/>
-              {#if hasCart && $cart.length || cartProductCount}
+              {#if hasCart && getTotalQuantity($cart) || cartProductCount}
                 <Indicator 
                   border
                   size="xl" 
                   color="red"
                   placement="top-right"
                   class="text-white text-sm font-bold">
-                  {$cart.length || cartProductCount}
+                  {getTotalQuantity($cart) || cartProductCount}
                 </Indicator>
               {/if}
             </span>
@@ -71,7 +71,7 @@ import Indicator from "flowbite-svelte/Indicator.svelte"
 import Cart from "flowbite-svelte-icons/CartOutline.svelte"
 import LightBulbSolid from "flowbite-svelte-icons/LightbulbSolid.svelte"
 import LightBulbOutline from "flowbite-svelte-icons/LightbulbOutline.svelte"
-import { cart, loadCartProductCount } from "@/store/cart"
+import { cart, getTotalQuantity, loadCartProductCount } from "@/store/cart"
 
 export let links: { [key:string]: string }
 export let hasDarkModeButton: boolean = false
