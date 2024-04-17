@@ -71,7 +71,10 @@ async function manageCart(request, response, context) {
 
     response.cookie("cart", cartID, cookieOptions).json({ cart, message })
   } catch (error) {
-    if (error.message === "cart_not_found") {
+    // @ts-ignore
+    const { code, message, status } = error
+  
+    if (message === "cart_not_found") {
       const cart = await createCart(context)
 
       return response
@@ -79,12 +82,12 @@ async function manageCart(request, response, context) {
         .json({ cart: cart.products, message: null })
     }
 
-    if (["product_not_found", "variant_not_found"].indexOf(error.message) >= 0) {
-      return response.status(error.code).json({ message: error.message })
+    if (["product_not_found", "variant_not_found"].indexOf(message) >= 0) {
+      return response.status(code).json({ message })
     }
 
     console.error(error)
-    return response.status(error.code ?? error.status ?? 500).json({ message: error.message })
+    return response.status(code ?? status ?? 500).json({ message })
   }
 }
 
