@@ -9,13 +9,6 @@
 /** @typedef {import("./Product").ProductVariation} ProductVariation */
 /** @typedef {import("./Product").ProductStyle} ProductStyle */
 
-const cookieOptions = {
-  httpOnly: true,
-  domain: process.env.COOKIE_DOMAIN,
-  expires: new Date(Date.now() + (parseInt(process.env.CART_SESSION_TIME ?? "43200000"))),
-  secure: process.env.APP_ENV === "production"
-}
-
 class HttpError extends Error {
   /**
    * @param {string} message
@@ -28,12 +21,16 @@ class HttpError extends Error {
   }
 }
 
-/** Registers Cart synchronization endpoints for E-Commerce operations
- * @param {Router} router - Express Router
- * @param {{ [key: string]: any }} context - Directus context object
- */
-export default function registerCartEndpoints(router, context) {
-  router.all("/", async (req, res) => await manageCart(req, res, context))
+export default {
+  id: "carts",
+
+  /** Registers Cart synchronization endpoints for E-Commerce operations
+   * @param {Router} router - Express Router
+   * @param {{ [key: string]: any }} context - Directus context object
+   */
+  handler(router, context) {
+    router.all("/", async (req, res) => await manageCart(req, res, context))
+  }
 }
 
 /**
@@ -69,7 +66,7 @@ async function manageCart(request, response, context) {
       .where("id", cartID)
       .update({ products: JSON.stringify(cart), last_accessed: Date.now() })
 
-    response.cookie("cart", cartID, cookieOptions).json({ cart, message })
+    response.cookie("cart", cartID, getCookieOptions(context.env)).json({ cart, message })
   } catch (error) {
     // @ts-ignore
     const { code, message, status } = error
@@ -78,7 +75,7 @@ async function manageCart(request, response, context) {
       const cart = await createCart(context)
 
       return response
-        .cookie("cart", cart.id, cookieOptions)
+        .cookie("cart", cart.id, getCookieOptions(context.env))
         .json({ cart: cart.products, message: null })
     }
 
@@ -213,4 +210,16 @@ async function synchronizeProductData(item, cart, context) {
   } else cart.push(item)
 
   return cart
+}
+
+/** Generates options for response cookies
+ * @param {{ [key: string]: any }} env
+ */
+function getCookieOptions(env) {
+  return {
+    httpOnly: true,
+    domain: process.env.COOKIE_DOMAIN,
+    expires: new Date(Date.now() + (parseInt(process.env.CART_SESSION_TIME ?? "43200000"))),
+    secure: process.env.APP_ENV === "production"
+  }
 }
