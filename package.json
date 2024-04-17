@@ -11,7 +11,7 @@
     "directus": "npx directus start"
   },
   "dependencies": {
-    "directus": "^10.8.1",
+    "directus": "^10.10.5",
     "sqlite3": "^5.1.6"
   },
   "peerDependencies": {
@@ -64,6 +64,7 @@
     "svelte-fa": "^3.0.4",
     "svelte-preprocess": "^5.0.4",
     "tailwindcss": "^3.3.3",
+    "typescript": "~5.3.3",
     "yup": "^1.4.0"
   },
   "eslintConfig": {
